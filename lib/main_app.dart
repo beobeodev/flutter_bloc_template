@@ -143,6 +143,7 @@ class _MyAppState extends State<MyApp> {
 Future<void> initializeApp() async {
   await EasyLocalization.ensureInitialized();
   EasyLocalization.logger.enableBuildModes = [];
+  await AppFlavor().setupFlavor();
 
   configureDependencies();
 

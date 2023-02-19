@@ -1,3 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 enum Flavor {
   DEV,
   QA,
@@ -8,6 +10,8 @@ class AppFlavor {
   static Flavor? appFlavor;
 
   static String get name => appFlavor?.name ?? '';
+
+  static String get apiBaseUrl => dotenv.get('BASE_URL');
 
   static String get title {
     switch (appFlavor) {
@@ -22,16 +26,20 @@ class AppFlavor {
     }
   }
 
-  static String get apiBaseUrl {
+  Future<void> setupFlavor() async {
     switch (appFlavor) {
       case Flavor.DEV:
-        return 'dev.smartfoodcooking.com';
+        await dotenv.load(fileName: '.env.dev');
+        break;
       case Flavor.QA:
-        return 'QA';
+        await dotenv.load(fileName: '.env.qa');
+        break;
       case Flavor.STAGING:
-        return '';
+        await dotenv.load(fileName: '.env.staging');
+        break;
       default:
-        return '';
+        await dotenv.load();
+        break;
     }
   }
 }

@@ -49,3 +49,9 @@ app.*.map.json
 # mason
 .mason
 mason-lock.json
+
+# env
+.env
+.env.dev
+.env.qa
+.env.staging

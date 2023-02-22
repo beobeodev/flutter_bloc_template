@@ -57,7 +57,7 @@ abstract class DialogUtil {
   }) async {
     return await showDialog(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: barrierDismissible,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
@@ -71,35 +71,35 @@ abstract class DialogUtil {
                 style: contentStyle,
               ),
           actions: <Widget>[
-            AppRoundedButton(
-              width: isConfirmDialog ? null : double.infinity,
-              onPressed: () {
-                Navigator.of(context).pop();
-                cancelAction?.call();
-              },
-              content: cancelButtonText ?? LocaleKeys.button_cancel.tr(),
-              textStyle: TextStyles.s14BoldText.copyWith(
-                color: ColorStyles.red400,
-              ),
-              borderSide: const BorderSide(color: ColorStyles.red400),
-              backgroundColor: Colors.transparent,
-              height: 45,
-            ),
-            const SizedBox(
-              width: 15,
-            ),
             if (isConfirmDialog)
               AppRoundedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-                  confirmAction?.call();
+                  cancelAction?.call();
                 },
-                content: confirmButtonText ?? LocaleKeys.button_confirm.tr(),
+                content: cancelButtonText ?? LocaleKeys.button_cancel.tr(),
                 textStyle: TextStyles.s14BoldText.copyWith(
-                  color: Colors.white,
+                  color: ColorStyles.red400,
                 ),
+                borderSide: const BorderSide(color: ColorStyles.red400),
+                backgroundColor: Colors.transparent,
                 height: 45,
               ),
+            const SizedBox(
+              width: 15,
+            ),
+            AppRoundedButton(
+              width: isConfirmDialog ? null : double.infinity,
+              onPressed: () {
+                Navigator.of(context).pop();
+                confirmAction?.call();
+              },
+              content: confirmButtonText ?? LocaleKeys.button_confirm.tr(),
+              textStyle: TextStyles.s14BoldText.copyWith(
+                color: Colors.white,
+              ),
+              height: 45,
+            ),
           ],
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

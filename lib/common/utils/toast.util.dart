@@ -70,7 +70,6 @@ abstract class ToastUtil {
 
 class ToastView {
   static final ToastView _instance = ToastView._internal();
-
   factory ToastView() => _instance;
 
   ToastView._internal();

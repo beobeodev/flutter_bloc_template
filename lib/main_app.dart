@@ -1,61 +1,14 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_template/common/constants/locales.dart';
+import 'package:flutter_template/configs/app_bloc_observer.dart';
 import 'package:flutter_template/modules/auth/bloc/auth/auth.bloc.dart';
-import 'package:flutter_template/router/app_routes.dart';
+import 'package:flutter_template/configs/app_routes.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_template/di/di.dart';
 import 'package:flutter_template/flavors.dart';
 import 'package:flutter_template/generated/codegen_loader.g.dart';
-
-class AppBlocObserver extends BlocObserver {
-  @override
-  void onCreate(BlocBase bloc) {
-    super.onCreate(bloc);
-    log(
-      'onBlocCreate -- ${bloc.runtimeType}',
-      name: '${bloc.runtimeType}_CREATE',
-    );
-  }
-
-  @override
-  void onEvent(Bloc bloc, Object? event) {
-    super.onEvent(bloc, event);
-    log('onAddEvent -- $event', name: '${bloc.runtimeType}_EVENT');
-  }
-
-  @override
-  void onTransition(Bloc bloc, Transition transition) {
-    super.onTransition(bloc, transition);
-    log(
-      'onStateTransition -- ${bloc.runtimeType}\n'
-      'ADD_EVENT: ${transition.event}\n'
-      'CURRENT_STATE: ${transition.currentState}\n'
-      'NEXT_STATE: ${transition.nextState}',
-      name: '${bloc.runtimeType}_TRANSITION',
-    );
-  }
-
-  @override
-  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    super.onError(bloc, error, stackTrace);
-    log(
-      'onError -- ${bloc.runtimeType}, $error',
-      name: '${bloc.runtimeType}_ERROR',
-    );
-  }
-
-  @override
-  void onClose(BlocBase bloc) {
-    super.onClose(bloc);
-    log(
-      'onBlocClose -- ${bloc.runtimeType}',
-      name: '${bloc.runtimeType}_CLOSE',
-    );
-  }
-}
 
 Future<void> mainApp(Flavor flavor) async {
   AppFlavor.appFlavor = flavor;
@@ -65,12 +18,12 @@ Future<void> mainApp(Flavor flavor) async {
   runApp(
     EasyLocalization(
       supportedLocales: const [
-        Locale('en', 'US'),
-        Locale('vi', 'VN'),
+        AppLocales.en,
+        AppLocales.vi,
       ],
-      path: 'assets/locales',
-      fallbackLocale: const Locale('vi', 'VN'),
-      startLocale: const Locale('vi', 'VN'),
+      path: AppLocales.path,
+      fallbackLocale: AppLocales.vi,
+      startLocale: AppLocales.vi,
       useOnlyLangCode: true,
       assetLoader: const CodegenLoader(),
       child: const MyApp(),
@@ -87,7 +40,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
-
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
   @override
@@ -100,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         },
         child: MaterialApp(
           navigatorKey: _navigatorKey,
-          title: 'Flutter Demo',
+          title: AppFlavor.title,
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),

@@ -11,7 +11,7 @@ extension ContextExtention on BuildContext {
   ThemeData get theme => Theme.of(this);
 
   /// Check if dark mode theme is enable
-  bool get isDarkMode => (theme.brightness == Brightness.dark);
+  bool get isDarkMode => theme.brightness == Brightness.dark;
 
   /// similar to [MediaQuery.of(context).padding]
   EdgeInsets get mediaQueryPadding => MediaQuery.of(this).padding;

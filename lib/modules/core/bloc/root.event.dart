@@ -8,9 +8,9 @@ abstract class RootEvent extends Equatable {
 }
 
 class RootBottomTabChange extends RootEvent {
-  final int newIndex;
-
   const RootBottomTabChange({required this.newIndex});
+  
+  final int newIndex;
 
   @override
   List<Object> get props => [newIndex];

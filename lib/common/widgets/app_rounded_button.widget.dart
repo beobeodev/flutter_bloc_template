@@ -4,6 +4,28 @@ import 'package:flutter_template/common/theme/text_styles.dart';
 import 'package:flutter_template/common/widgets/loading_dot.widget.dart';
 
 class AppRoundedButton extends StatefulWidget {
+  AppRoundedButton({
+    Key? key,
+    required this.onPressed,
+    this.width,
+    this.height = 48,
+    this.borderRadius = 7,
+    this.elevation = 0,
+    this.backgroundColor = ColorStyles.blue400,
+    this.disableBackgroundColor = ColorStyles.gray300,
+    this.shadowColor,
+    required this.content,
+    TextStyle? textStyle,
+    this.isDisable = false,
+    this.isLoading = false,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.child,
+    this.borderSide,
+  })  : textStyle =
+            textStyle ?? TextStyles.s14BoldText.copyWith(color: Colors.white),
+        super(key: key);
+        
   final VoidCallback onPressed;
 
   final double? width;
@@ -27,28 +49,6 @@ class AppRoundedButton extends StatefulWidget {
   final Widget? child;
 
   final BorderSide? borderSide;
-
-  AppRoundedButton({
-    Key? key,
-    required this.onPressed,
-    this.width,
-    this.height = 48,
-    this.borderRadius = 7,
-    this.elevation = 0,
-    this.backgroundColor = ColorStyles.blue400,
-    this.disableBackgroundColor = ColorStyles.gray300,
-    this.shadowColor,
-    required this.content,
-    TextStyle? textStyle,
-    this.isDisable = false,
-    this.isLoading = false,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.child,
-    this.borderSide,
-  })  : textStyle =
-            textStyle ?? TextStyles.s14BoldText.copyWith(color: Colors.white),
-        super(key: key);
 
   @override
   State<AppRoundedButton> createState() => _AppRoundedButtonState();

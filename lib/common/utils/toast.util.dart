@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/generated/locale_keys.g.dart';
@@ -69,10 +70,9 @@ abstract class ToastUtil {
 }
 
 class ToastView {
-  static final ToastView _instance = ToastView._internal();
-  factory ToastView() => _instance;
-
   ToastView._internal();
+  factory ToastView() => _instance;
+  static final ToastView _instance = ToastView._internal();
 
   static OverlayState? overlayState;
   static OverlayEntry? _overlayEntry;

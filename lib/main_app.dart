@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/common/constants/locales.dart';
 import 'package:flutter_template/configs/app_bloc_observer.dart';
 import 'package:flutter_template/configs/app_routes.dart';
+import 'package:flutter_template/data/repositories/user.repository.dart';
 import 'package:flutter_template/di/di.dart';
 import 'package:flutter_template/flavors.dart';
 import 'package:flutter_template/generated/codegen_loader.g.dart';
@@ -45,9 +46,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthBloc(),
-      child: Listener(
-        onPointerDown: (_) {
+      create: (context) => AuthBloc(
+        userRepository: getIt.get<UserRepository>(),
+      ),
+      child: GestureDetector(
+        onTap: () {
           FocusManager.instance.primaryFocus?.unfocus();
         },
         child: MaterialApp(

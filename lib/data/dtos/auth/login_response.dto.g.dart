@@ -11,5 +11,5 @@ LoginResponseDTO _$LoginResponseDTOFromJson(Map<String, dynamic> json) =>
       user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
       accessToken: json['accessToken'] as String,
       refreshToken: json['refreshToken'] as String,
-      expiresIn: json['expiresIn'] as String,
+      expiresIn: json['expiresIn'] as int,
     );

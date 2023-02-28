@@ -2,19 +2,16 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_template/common/constants/hive_keys.dart';
-import 'package:flutter_template/common/helpers/hive/hive.helper.dart';
-import 'package:flutter_template/data/datasources/local/local.datasource.dart';
+import 'package:flutter_template/data/datasources/local/user.datasource.dart';
 import 'package:flutter_template/data/dtos/auth/refresh_token.dto.dart';
 
 class AppInterceptor extends QueuedInterceptor {
-  AppInterceptor({required LocalDatasource localDatasource, required Dio dio})
-      : _localDatasource = localDatasource,
-        _dio = dio;
+  AppInterceptor({
+    required UserLocalDataSource userLocalDataSource,
+  }) : _userLocalDataSource = userLocalDataSource;
 
-  final LocalDatasource _localDatasource;
-
-  final Dio _dio;
+  final UserLocalDataSource _userLocalDataSource;
+  final Dio _dio = Dio();
 
   @override
   Future<void> onRequest(
@@ -25,10 +22,7 @@ class AppInterceptor extends QueuedInterceptor {
 
     _checkTokenExpired();
 
-    final String? accessToken = await HiveHelper.get(
-      boxName: HiveKeys.authBox,
-      keyValue: HiveKeys.accessToken,
-    );
+    final String? accessToken = _userLocalDataSource.getAccessToken();
 
     if (accessToken != null) {
       options.headers.addAll({
@@ -66,7 +60,7 @@ class AppInterceptor extends QueuedInterceptor {
   }
 
   void _checkTokenExpired() {
-    final String? expiredTime = _localDatasource.expiresIn;
+    final String? expiredTime = _userLocalDataSource.getExpiresIn();
 
     if (expiredTime != null &&
         DateTime.parse(expiredTime)
@@ -76,7 +70,7 @@ class AppInterceptor extends QueuedInterceptor {
   }
 
   Future<void> _refreshToken() async {
-    final String? refreshToken = _localDatasource.refreshToken;
+    final String? refreshToken = _userLocalDataSource.getRefreshToken();
 
     if (refreshToken == null || refreshToken.isEmpty) {
       // TODO: navigate to login screen
@@ -92,11 +86,10 @@ class AppInterceptor extends QueuedInterceptor {
       final RefreshTokenDTO refreshTokenDTO =
           RefreshTokenDTO.fromJson(response.data);
 
-      /// HACK: replace token data
       await Future.wait([
-        _localDatasource.saveAccessToken(refreshTokenDTO.accessToken),
-        _localDatasource.saveRefreshToken(refreshTokenDTO.refreshToken),
-        _localDatasource.saveExpiresIn(refreshTokenDTO.expiresIn)
+        _userLocalDataSource.saveAccessToken(refreshTokenDTO.accessToken),
+        _userLocalDataSource.saveRefreshToken(refreshTokenDTO.refreshToken),
+        _userLocalDataSource.saveExpiresIn(refreshTokenDTO.expiresIn)
       ]);
     } catch (err) {
       // TODO: logout

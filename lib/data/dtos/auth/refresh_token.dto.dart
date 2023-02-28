@@ -15,11 +15,11 @@ class RefreshTokenDTO {
   });
   final String accessToken;
   final String refreshToken;
-  final String expiresIn;
+  final int expiresIn;
 
   Map<String, dynamic> toJson() => _$RefreshTokenDTOToJson(this);
 
-  Map<String, String> toLocalJson() {
+  Map<String, dynamic> toLocalJson() {
     return {
       HiveKeys.accessToken: accessToken,
       HiveKeys.refreshToken: refreshToken,

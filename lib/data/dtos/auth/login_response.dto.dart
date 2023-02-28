@@ -14,8 +14,9 @@ class LoginResponseDTO {
     required this.refreshToken,
     required this.expiresIn,
   });
+
   final UserModel user;
   final String accessToken;
   final String refreshToken;
-  final String expiresIn;
+  final int expiresIn;
 }

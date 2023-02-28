@@ -1,11 +1,12 @@
-import 'package:flutter_template/data/datasources/remote/dio.helper.dart';
-import 'package:flutter_template/di/provider/dio_provider.dart';
 import 'package:injectable/injectable.dart';
+
+import 'package:flutter_template/common/helpers/dio.helper.dart';
+import 'package:flutter_template/di/providers/dio_provider.dart';
 
 @module
 abstract class NetworkModule {
-  @singleton
-  DioHelper providerDioHelper(DioProvider dioProvider) {
+  @lazySingleton
+  DioHelper provideDioHelper(DioProvider dioProvider) {
     return DioHelper(dio: dioProvider.getDio());
   }
 }

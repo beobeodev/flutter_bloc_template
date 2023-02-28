@@ -2,21 +2,21 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_template/common/constants/hive_keys.dart';
 import 'package:flutter_template/common/helpers/hive/hive.helper.dart';
-import 'package:flutter_template/data/dtos/auth.dto.dart';
+import 'package:flutter_template/data/dtos/auth/refresh_token.dto.dart';
 import 'package:flutter_template/data/models/user.model.dart';
+
 part 'auth.event.dart';
 part 'auth.state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthState.unknown()) {
     on<AuthSetUser>(_onSetUser);
-    on<AuthSetTokens>(_onSetTokens);
     on<AuthGetUserInfo>(_onGetUserInfo);
   }
 
   Future<void> _onGetUserInfo(
     AuthGetUserInfo event,
-    Emitter<AuthState> emitter,
+    Emitter<AuthState> emit,
   ) async {
     final String? accessToken = await HiveHelper.get(
       boxName: HiveKeys.authBox,
@@ -24,31 +24,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
 
     if (accessToken == null) {
-      emitter(const AuthState.unauthenticated());
+      emit(const AuthState.unauthenticated());
     } else {
-      emitter(AuthState.authenticated(UserModel(email: '')));
+      emit(AuthState.authenticated(UserModel(email: '')));
     }
   }
 
-  void _onSetUser(AuthSetUser event, Emitter<AuthState> emitter) {
+  void _onSetUser(AuthSetUser event, Emitter<AuthState> emit) {
     if (event.currentUser == null) {
-      emitter(const AuthState.unauthenticated());
+      emit(const AuthState.unauthenticated());
     } else {
-      emitter(AuthState.authenticated(event.currentUser!));
-    }
-  }
-
-  Future<void> _onSetTokens(
-    AuthSetTokens event,
-    Emitter<AuthState> emitter,
-  ) async {
-    if (event.refreshToken == null) {
-      await HiveHelper.clear(boxName: HiveKeys.authBox);
-    } else {
-      await HiveHelper.putAll(
-        boxName: HiveKeys.authBox,
-        value: event.refreshToken!.toLocalJson(),
-      );
+      emit(AuthState.authenticated(event.currentUser!));
     }
   }
 }

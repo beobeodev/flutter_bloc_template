@@ -2,14 +2,14 @@ import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 
 class LoadingDot extends StatefulWidget {
-  final double size;
-  final Color dotColor;
-
   const LoadingDot({
     Key? key,
     this.size = 20,
     this.dotColor = Colors.white,
   }) : super(key: key);
+  
+  final double size;
+  final Color dotColor;
 
   @override
   State<LoadingDot> createState() => _LoadingDotState();

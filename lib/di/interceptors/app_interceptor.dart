@@ -4,9 +4,18 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_template/common/constants/hive_keys.dart';
 import 'package:flutter_template/common/helpers/hive/hive.helper.dart';
-import 'package:flutter_template/data/dtos/auth.dto.dart';
+import 'package:flutter_template/data/datasources/local/local.datasource.dart';
+import 'package:flutter_template/data/dtos/auth/refresh_token.dto.dart';
 
-class DioInterceptor extends QueuedInterceptor {
+class AppInterceptor extends QueuedInterceptor {
+  AppInterceptor({required LocalDatasource localDatasource, required Dio dio})
+      : _localDatasource = localDatasource,
+        _dio = dio;
+
+  final LocalDatasource _localDatasource;
+
+  final Dio _dio;
+
   @override
   Future<void> onRequest(
     RequestOptions options,
@@ -14,7 +23,7 @@ class DioInterceptor extends QueuedInterceptor {
   ) async {
     log('REQUEST[${options.method}] => PATH: ${options.path}');
 
-    await _checkTokenExpired();
+    _checkTokenExpired();
 
     final String? accessToken = await HiveHelper.get(
       boxName: HiveKeys.authBox,
@@ -34,6 +43,7 @@ class DioInterceptor extends QueuedInterceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     log(
       'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}',
+      name: 'Intercepter: onResponse',
     );
 
     return handler.next(response);
@@ -42,23 +52,21 @@ class DioInterceptor extends QueuedInterceptor {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     if (err.response?.statusCode == 401) {
-      // TODO: logout
+      // HACK: handle logout, maybe
 
       return;
     }
 
     log(
       'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}',
+      name: 'Intercepter: onError',
     );
 
     return handler.next(err);
   }
 
-  Future<void> _checkTokenExpired() async {
-    final String? expiredTime = await HiveHelper.get(
-      boxName: HiveKeys.authBox,
-      keyValue: HiveKeys.expiresIn,
-    );
+  void _checkTokenExpired() {
+    final String? expiredTime = _localDatasource.expiresIn;
 
     if (expiredTime != null &&
         DateTime.parse(expiredTime)
@@ -68,27 +76,28 @@ class DioInterceptor extends QueuedInterceptor {
   }
 
   Future<void> _refreshToken() async {
-    final String? refreshToken = await HiveHelper.get(
-      boxName: HiveKeys.authBox,
-      keyValue: HiveKeys.refreshToken,
-    );
+    final String? refreshToken = _localDatasource.refreshToken;
 
     if (refreshToken == null || refreshToken.isEmpty) {
       // TODO: navigate to login screen
+
       return;
     }
 
     log('--[REFRESH TOKEN]--: $refreshToken');
 
-    final Dio tokenDio = Dio();
-
     try {
-      final Response response = await tokenDio.get('');
+      final Response response = await _dio.get('');
 
       final RefreshTokenDTO refreshTokenDTO =
           RefreshTokenDTO.fromJson(response.data);
 
-      // TODO: handle set token to local data source
+      /// HACK: replace token data
+      await Future.wait([
+        _localDatasource.saveAccessToken(refreshTokenDTO.accessToken),
+        _localDatasource.saveRefreshToken(refreshTokenDTO.refreshToken),
+        _localDatasource.saveExpiresIn(refreshTokenDTO.expiresIn)
+      ]);
     } catch (err) {
       // TODO: logout
     }

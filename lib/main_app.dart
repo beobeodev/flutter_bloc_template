@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/common/constants/locales.dart';
 import 'package:flutter_template/configs/app_bloc_observer.dart';
-import 'package:flutter_template/modules/auth/bloc/auth/auth.bloc.dart';
 import 'package:flutter_template/configs/app_routes.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_template/di/di.dart';
 import 'package:flutter_template/flavors.dart';
 import 'package:flutter_template/generated/codegen_loader.g.dart';
+import 'package:flutter_template/modules/auth/bloc/auth/auth.bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> mainApp(Flavor flavor) async {
   AppFlavor.appFlavor = flavor;
@@ -97,9 +97,8 @@ Future<void> initializeApp() async {
   EasyLocalization.logger.enableBuildModes = [];
   await AppFlavor().setupFlavor();
 
-  configureDependencies();
-
   await Hive.initFlutter();
+  configureDependencies();
 
   Bloc.observer = AppBlocObserver();
 }

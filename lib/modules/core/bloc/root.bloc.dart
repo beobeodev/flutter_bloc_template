@@ -11,10 +11,10 @@ class RootBloc extends Bloc<RootEvent, RootState> {
 
   void _onBottomTabChanged(
     RootBottomTabChange event,
-    Emitter<RootState> emitter,
+    Emitter<RootState> emit,
   ) {
     if (event.newIndex == state.currentIndex) return;
 
-    emitter(state.copyWith(currentIndex: event.newIndex));
+    emit(state.copyWith(currentIndex: event.newIndex));
   }
 }

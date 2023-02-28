@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
 class SlideIndexedStack extends StatefulWidget {
-  final int index;
-  final double slideOffset;
-  final List<Widget> children;
-  final Duration duration;
-
   const SlideIndexedStack({
     Key? key,
     required this.index,
@@ -13,6 +8,11 @@ class SlideIndexedStack extends StatefulWidget {
     required this.children,
     this.duration = const Duration(milliseconds: 200),
   }) : super(key: key);
+
+  final int index;
+  final double slideOffset;
+  final List<Widget> children;
+  final Duration duration;
 
   @override
   State<SlideIndexedStack> createState() => _SlideIndexedStackState();
@@ -87,6 +87,19 @@ class _SlideIndexedStackState extends State<SlideIndexedStack>
 }
 
 class LazyIndexedStack extends StatefulWidget {
+
+  /// Creates LazyLoadIndexedStack that wraps IndexedStack.
+  LazyIndexedStack({
+    Key? key,
+    Widget? unloadWidget,
+    this.alignment = AlignmentDirectional.topStart,
+    this.sizing = StackFit.loose,
+    this.textDirection,
+    required this.index,
+    required this.children,
+  }) : super(key: key) {
+    this.unloadWidget = unloadWidget ?? Container();
+  }
   /// Widget to be built when not loaded. Default widget is [Container].
   late final Widget unloadWidget;
 
@@ -107,19 +120,6 @@ class LazyIndexedStack extends StatefulWidget {
   /// A child widget will not be built until the index associated with it is specified.
   /// When the index associated with the widget is specified again, the built widget is returned.
   final List<Widget> children;
-
-  /// Creates LazyLoadIndexedStack that wraps IndexedStack.
-  LazyIndexedStack({
-    Key? key,
-    Widget? unloadWidget,
-    this.alignment = AlignmentDirectional.topStart,
-    this.sizing = StackFit.loose,
-    this.textDirection,
-    required this.index,
-    required this.children,
-  }) : super(key: key) {
-    this.unloadWidget = unloadWidget ?? Container();
-  }
 
   @override
   State<LazyIndexedStack> createState() => _LazyIndexedStackState();

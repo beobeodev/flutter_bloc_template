@@ -1,11 +1,11 @@
 part of 'root.bloc.dart';
 
 class RootState extends Equatable {
-  final int currentIndex;
-
   const RootState({
     this.currentIndex = 0,
   });
+
+  final int currentIndex;
 
   @override
   List<Object> get props => [currentIndex];

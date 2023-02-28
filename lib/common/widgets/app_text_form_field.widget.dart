@@ -3,6 +3,37 @@ import 'package:flutter_template/common/theme/color_styles.dart';
 import 'package:flutter_template/common/theme/text_styles.dart';
 
 class AppTextFormField extends StatelessWidget {
+  const AppTextFormField({
+    Key? key,
+    this.textController,
+    this.isObscure = false,
+    this.readOnly = false,
+    this.extendField = true,
+    this.enabled = true,
+    this.isCenterText = false,
+    this.hintText,
+    this.errorText,
+    this.labelText,
+    this.initialValue,
+    this.borderRadius = 6,
+    this.borderColor = ColorStyles.gray100,
+    this.focusedBorderColor = ColorStyles.blue400,
+    this.fillColor = Colors.white,
+    this.hintColor = ColorStyles.gray200,
+    this.prefixIconColor,
+    this.suffixIconColor,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.keyboardType,
+    this.validator,
+    this.onTap,
+    this.onChanged,
+    this.onTapPrefixIcon,
+    this.onTapSuffixIcon,
+    this.labelStyle = TextStyles.s14MediumText,
+    this.focusNode,
+  }) : super(key: key);
+  
   final TextEditingController? textController;
 
   final bool isObscure;
@@ -40,37 +71,6 @@ class AppTextFormField extends StatelessWidget {
   final TextStyle? labelStyle;
 
   final FocusNode? focusNode;
-
-  const AppTextFormField({
-    Key? key,
-    this.textController,
-    this.isObscure = false,
-    this.readOnly = false,
-    this.extendField = true,
-    this.enabled = true,
-    this.isCenterText = false,
-    this.hintText,
-    this.errorText,
-    this.labelText,
-    this.initialValue,
-    this.borderRadius = 6,
-    this.borderColor = ColorStyles.gray100,
-    this.focusedBorderColor = ColorStyles.blue400,
-    this.fillColor = Colors.white,
-    this.hintColor = ColorStyles.gray200,
-    this.prefixIconColor,
-    this.suffixIconColor,
-    this.suffixIcon,
-    this.prefixIcon,
-    this.keyboardType,
-    this.validator,
-    this.onTap,
-    this.onChanged,
-    this.onTapPrefixIcon,
-    this.onTapSuffixIcon,
-    this.labelStyle = TextStyles.s14MediumText,
-    this.focusNode,
-  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

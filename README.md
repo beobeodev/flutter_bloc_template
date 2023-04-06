@@ -15,14 +15,9 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-## Setup enviroment before running
+## Setup environment before running
 
- Create 3 env file: 
-```
- .env.qa
- .env.dev
- .env.staging
-```
+if you have any environment variable, you should add it to config.json
 
 ## Run build_runner
 

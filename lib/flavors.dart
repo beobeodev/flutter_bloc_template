@@ -1,5 +1,3 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 enum Flavor {
   DEV,
   QA,
@@ -9,9 +7,7 @@ enum Flavor {
 class AppFlavor {
   static Flavor? appFlavor;
 
-  static String get name => appFlavor?.name ?? '';
-
-  static String get apiBaseUrl => dotenv.get('BASE_URL');
+  static String get apiBaseUrl => const String.fromEnvironment('BASE_URL');
 
   static String get title {
     switch (appFlavor) {
@@ -23,23 +19,6 @@ class AppFlavor {
         return 'Flutter Template';
       default:
         return 'title';
-    }
-  }
-
-  Future<void> setupFlavor() async {
-    switch (appFlavor) {
-      case Flavor.DEV:
-        await dotenv.load(fileName: '.env.dev');
-        break;
-      case Flavor.QA:
-        await dotenv.load(fileName: '.env.qa');
-        break;
-      case Flavor.STAGING:
-        await dotenv.load(fileName: '.env.staging');
-        break;
-      default:
-        await dotenv.load();
-        break;
     }
   }
 }

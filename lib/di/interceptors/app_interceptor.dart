@@ -2,16 +2,20 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_template/data/datasources/local/user.datasource.dart';
+import 'package:flutter_template/common/constants/hive_keys.dart';
 import 'package:flutter_template/data/dtos/auth/refresh_token.dto.dart';
+import 'package:hive/hive.dart';
+import 'package:injectable/injectable.dart';
 
 class AppInterceptor extends QueuedInterceptor {
   AppInterceptor({
-    required UserLocalDataSource userLocalDataSource,
-  }) : _userLocalDataSource = userLocalDataSource;
+    @Named(HiveKeys.authBox) required Box authBox,
+    required Dio dio,
+  })  : _authBox = authBox,
+        _dio = dio;
 
-  final UserLocalDataSource _userLocalDataSource;
-  final Dio _dio = Dio();
+  final Box _authBox;
+  final Dio _dio;
 
   @override
   Future<void> onRequest(
@@ -22,7 +26,7 @@ class AppInterceptor extends QueuedInterceptor {
 
     _checkTokenExpired();
 
-    final String? accessToken = _userLocalDataSource.getAccessToken();
+    final String? accessToken = _authBox.get(HiveKeys.accessToken);
 
     if (accessToken != null) {
       options.headers.addAll({
@@ -59,18 +63,18 @@ class AppInterceptor extends QueuedInterceptor {
     return handler.next(err);
   }
 
-  void _checkTokenExpired() {
-    final String? expiredTime = _userLocalDataSource.getExpiresIn();
+  Future<void> _checkTokenExpired() async {
+    final String? expiredTime = _authBox.get(HiveKeys.expiresIn);
 
     if (expiredTime != null &&
         DateTime.parse(expiredTime)
             .isBefore(DateTime.now().add(const Duration(seconds: 3)))) {
-      _refreshToken();
+      await _refreshToken();
     }
   }
 
   Future<void> _refreshToken() async {
-    final String? refreshToken = _userLocalDataSource.getRefreshToken();
+    final String? refreshToken = _authBox.get(HiveKeys.refreshToken);
 
     if (refreshToken == null || refreshToken.isEmpty) {
       // TODO: navigate to login screen
@@ -86,11 +90,7 @@ class AppInterceptor extends QueuedInterceptor {
       final RefreshTokenDTO refreshTokenDTO =
           RefreshTokenDTO.fromJson(response.data);
 
-      await Future.wait([
-        _userLocalDataSource.saveAccessToken(refreshTokenDTO.accessToken),
-        _userLocalDataSource.saveRefreshToken(refreshTokenDTO.refreshToken),
-        _userLocalDataSource.saveExpiresIn(refreshTokenDTO.expiresIn)
-      ]);
+      await _authBox.putAll(refreshTokenDTO.toLocalJson());
     } catch (err) {
       // TODO: logout
     }

@@ -5,14 +5,15 @@ part 'refresh_token.dto.g.dart';
 
 @JsonSerializable()
 class RefreshTokenDTO {
-  factory RefreshTokenDTO.fromJson(Map<String, dynamic> json) =>
-      _$RefreshTokenDTOFromJson(json);
-
   RefreshTokenDTO({
     required this.accessToken,
     required this.refreshToken,
     required this.expiresIn,
   });
+
+  factory RefreshTokenDTO.fromJson(Map<String, dynamic> json) =>
+      _$RefreshTokenDTOFromJson(json);
+
   final String accessToken;
   final String refreshToken;
   final int expiresIn;

@@ -21,6 +21,6 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   ) async {
     await Future.delayed(const Duration(milliseconds: 600));
 
-    _authBloc.add(AuthUserInfoChecked());
+    _authBloc.add(AuthUserInfoCheck());
   }
 }

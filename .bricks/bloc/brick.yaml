@@ -34,3 +34,4 @@ vars:
     values:
       - basic
       - equatable
+      - freezed

@@ -34,6 +34,7 @@ vars:
     values:
       - basic
       - equatable
+      - freezed
   type:
     type: enum
     description: The type of bloc used.

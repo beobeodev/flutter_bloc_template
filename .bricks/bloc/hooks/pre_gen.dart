@@ -6,6 +6,7 @@ Future<void> run(HookContext context) async {
     ...context.vars,
     'use_basic': style == 'basic',
     'use_equatable': style == 'equatable',
+    'use_freezed': style == 'freezed',
   };
 
   context.logger.info('Complete run pre generate');

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class {{name.pascalCase()}}Page extends StatelessWidget {
@@ -11,7 +11,7 @@ class {{name.pascalCase()}}Page extends StatelessWidget {
 }
 
 class _{{name.pascalCase()}}View extends StatelessWidget {
-  const _{{name.pascalCase()}}View({super.key});
+  const {{name.pascalCase()}}View({super.key});
 
   @override
   Widget build(BuildContext context) {

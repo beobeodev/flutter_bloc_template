@@ -16,6 +16,7 @@ abstract class ToastUtil {
       context,
       text: text ?? LocaleKeys.texts_success.tr(),
       backgroundColor: Colors.green,
+      position: position,
       leading: const Icon(
         Icons.check_circle_rounded,
         color: Colors.white,
@@ -33,6 +34,7 @@ abstract class ToastUtil {
       context,
       text: text ?? LocaleKeys.texts_error_occur.tr(),
       backgroundColor: Colors.redAccent,
+      position: position,
       leading: const Icon(
         Icons.warning_amber_outlined,
         color: Colors.white,

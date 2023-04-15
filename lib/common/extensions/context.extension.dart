@@ -13,12 +13,12 @@ extension ContextExtension on BuildContext {
   /// Check if dark mode theme is enable
   bool get isDarkMode => theme.brightness == Brightness.dark;
 
-  /// similar to [MediaQuery.of(context).padding]
-  EdgeInsets get mediaQueryPadding => MediaQuery.of(this).padding;
+  /// similar to [MediaQuery.of(context).viewPadding]
+  EdgeInsets get mediaQueryViewPadding => MediaQuery.of(this).viewPadding;
 
-  double get paddingTop => mediaQueryPadding.top;
+  double get paddingTop => mediaQueryViewPadding.top;
 
-  double get paddingBottom => mediaQueryPadding.bottom;
+  double get paddingBottom => mediaQueryViewPadding.bottom;
 
   /// similar to [MediaQuery.of(context).devicePixelRatio]
   double get devicePixelRatio => MediaQuery.of(this).devicePixelRatio;

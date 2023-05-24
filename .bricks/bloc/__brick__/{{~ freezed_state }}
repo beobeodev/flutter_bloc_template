@@ -1,4 +1,4 @@
-part of '{{name.snakeCase()}}_bloc.dart';
+part of '{{name.snakeCase()}}.bloc.dart';
 
 @freezed
 class {{name.pascalCase()}}State with _${{name.pascalCase()}}State {

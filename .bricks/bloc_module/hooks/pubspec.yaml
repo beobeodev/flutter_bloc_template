@@ -5,3 +5,7 @@ environment:
 
 dependencies:
   mason: '>=0.1.0-dev.41 <0.1.0'
+  path: ^1.8.3
+
+dev_dependencies:
+  flutter_lints: ^2.0.0

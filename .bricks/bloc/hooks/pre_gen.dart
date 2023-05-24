@@ -1,6 +1,6 @@
 import 'package:mason/mason.dart';
 
-Future<void> run(HookContext context) async {
+void run(HookContext context) {
   final style = context.vars['style'];
   context.vars = {
     ...context.vars,
@@ -8,6 +8,4 @@ Future<void> run(HookContext context) async {
     'use_equatable': style == 'equatable',
     'use_freezed': style == 'freezed',
   };
-
-  context.logger.info('Complete run pre generate');
 }

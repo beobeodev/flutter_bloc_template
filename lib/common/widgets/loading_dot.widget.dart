@@ -7,7 +7,7 @@ class LoadingDot extends StatefulWidget {
     this.size = 20,
     this.dotColor = Colors.white,
   }) : super(key: key);
-  
+
   final double size;
   final Color dotColor;
 

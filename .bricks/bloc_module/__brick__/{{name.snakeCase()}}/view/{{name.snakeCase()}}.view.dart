@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../{{name.snakeCase()}}.dart';
 
 class {{name.pascalCase()}}Page extends StatelessWidget {
   const {{name.pascalCase()}}Page({super.key});
@@ -11,7 +12,7 @@ class {{name.pascalCase()}}Page extends StatelessWidget {
 }
 
 class _{{name.pascalCase()}}View extends StatelessWidget {
-  const {{name.pascalCase()}}View({super.key});
+  const _{{name.pascalCase()}}View({super.key});
 
   @override
   Widget build(BuildContext context) {

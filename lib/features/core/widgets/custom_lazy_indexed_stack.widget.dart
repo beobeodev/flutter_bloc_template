@@ -87,7 +87,6 @@ class _SlideIndexedStackState extends State<SlideIndexedStack>
 }
 
 class LazyIndexedStack extends StatefulWidget {
-
   /// Creates LazyLoadIndexedStack that wraps IndexedStack.
   LazyIndexedStack({
     Key? key,
@@ -100,6 +99,7 @@ class LazyIndexedStack extends StatefulWidget {
   }) : super(key: key) {
     this.unloadWidget = unloadWidget ?? Container();
   }
+
   /// Widget to be built when not loaded. Default widget is [Container].
   late final Widget unloadWidget;
 

@@ -7,7 +7,7 @@ class UserModel {
   UserModel({
     required this.email,
   });
-  
+
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 

@@ -9,7 +9,7 @@ abstract class RootEvent extends Equatable {
 
 class RootBottomTabChange extends RootEvent {
   const RootBottomTabChange({required this.newIndex});
-  
+
   final int newIndex;
 
   @override

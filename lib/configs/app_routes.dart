@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/modules/auth/views/login.view.dart';
-import 'package:flutter_template/modules/core/views/root.view.dart';
-import 'package:flutter_template/modules/splash/splash.dart';
+import 'package:flutter_template/features/auth/views/login.view.dart';
+import 'package:flutter_template/features/core/views/root.view.dart';
+import 'package:flutter_template/features/splash/splash.dart';
 
 abstract class AppRoutes {
   static const String splash = '/';

@@ -1,3 +1,5 @@
+import 'package:flutter_template/common/constants/env_keys.dart';
+
 enum Flavor {
   DEV,
   QA,
@@ -7,7 +9,7 @@ enum Flavor {
 class AppFlavor {
   static Flavor? appFlavor;
 
-  static String get apiBaseUrl => const String.fromEnvironment('BASE_URL');
+  static String get apiBaseUrl => const String.fromEnvironment(EnvKeys.baseURL);
 
   static String get title {
     switch (appFlavor) {

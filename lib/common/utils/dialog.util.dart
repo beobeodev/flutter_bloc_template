@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/theme/color_styles.dart';
 import 'package:flutter_template/common/theme/text_styles.dart';
-import 'package:flutter_template/common/widgets/app_rounded_button.widget.dart';
+import 'package:flutter_template/common/widgets/common_rounded_button.widget.dart';
 import 'package:flutter_template/common/widgets/custom_popup_route.widget.dart';
 import 'package:flutter_template/generated/locale_keys.g.dart';
 
@@ -72,7 +72,7 @@ abstract class DialogUtil {
               ),
           actions: <Widget>[
             if (isConfirmDialog)
-              AppRoundedButton(
+              CommonRoundedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                   cancelAction?.call();
@@ -88,7 +88,7 @@ abstract class DialogUtil {
             const SizedBox(
               width: 15,
             ),
-            AppRoundedButton(
+            CommonRoundedButton(
               width: isConfirmDialog ? null : double.infinity,
               onPressed: () {
                 Navigator.of(context).pop();

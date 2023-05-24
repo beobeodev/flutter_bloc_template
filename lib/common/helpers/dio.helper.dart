@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class HttpRequestResponse<T> {
   HttpRequestResponse({
-    this.body,
+    this.data,
     this.headers,
     this.request,
     this.statusCode,
@@ -10,7 +10,7 @@ class HttpRequestResponse<T> {
     this.extra,
   });
 
-  T? body;
+  T? data;
   Headers? headers;
   RequestOptions? request;
   int? statusCode;
@@ -35,7 +35,7 @@ class DioHelper {
     );
 
     return HttpRequestResponse(
-      body: response.data,
+      data: response.data,
       headers: response.headers,
       request: response.requestOptions,
       statusCode: response.statusCode,
@@ -61,7 +61,7 @@ class DioHelper {
     );
 
     return HttpRequestResponse(
-      body: response.data,
+      data: response.data,
       headers: response.headers,
       request: response.requestOptions,
       statusCode: response.statusCode,
@@ -85,7 +85,7 @@ class DioHelper {
     );
 
     return HttpRequestResponse(
-      body: response.data,
+      data: response.data,
       headers: response.headers,
       request: response.requestOptions,
       statusCode: response.statusCode,
@@ -108,7 +108,7 @@ class DioHelper {
     );
 
     return HttpRequestResponse(
-      body: response.data,
+      data: response.data,
       headers: response.headers,
       request: response.requestOptions,
       statusCode: response.statusCode,

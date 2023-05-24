@@ -14,8 +14,8 @@ import 'package:flutter_template/data/datasources/user/user.datasource.dart'
     as _i9;
 import 'package:flutter_template/data/repositories/user.repository.dart'
     as _i10;
-import 'package:flutter_template/di/modules/local_module.dart' as _i11;
-import 'package:flutter_template/di/modules/network_module.dart' as _i12;
+import 'package:flutter_template/di/features/local_module.dart' as _i11;
+import 'package:flutter_template/di/features/network_module.dart' as _i12;
 import 'package:flutter_template/di/providers/dio_provider.dart' as _i4;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:hive/hive.dart' as _i5;

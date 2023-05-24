@@ -46,6 +46,7 @@ dependencies:
   flutter_bloc: ^8.1.2
   async: ^2.9.0
   equatable: ^2.0.5
+  lottie: ^2.3.2
 
 dev_dependencies:
   flutter_test:
@@ -111,6 +112,8 @@ flutter:
     - assets/icons/
     - assets/icons/launcher/
     - assets/locales/
+    - assets/images/
+    - assets/images/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -137,3 +140,4 @@ flutter_gen:
   output: lib/generated/
   integrations:
     flutter_svg: true
+    lottie: true

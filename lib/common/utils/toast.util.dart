@@ -194,15 +194,6 @@ class ToastCard extends StatefulWidget {
 
 class ToastStateFulState extends State<ToastCard>
     with SingleTickerProviderStateMixin {
-  void showAnimation() {
-    _animationController!.forward();
-  }
-
-  void hideAnimation() {
-    _animationController!.reverse();
-    _timer?.cancel();
-  }
-
   AnimationController? _animationController;
   late Animation _fadeAnimation;
   late Animation<Offset> _slideAnimation;
@@ -244,6 +235,15 @@ class ToastStateFulState extends State<ToastCard>
     _timer?.cancel();
     _animationController?.dispose();
     super.dispose();
+  }
+
+  void showAnimation() {
+    _animationController!.forward();
+  }
+
+  void hideAnimation() {
+    _animationController!.reverse();
+    _timer?.cancel();
   }
 
   @override

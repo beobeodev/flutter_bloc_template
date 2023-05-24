@@ -5,7 +5,7 @@ import 'package:flutter_template/configs/app_routes.dart';
 import 'package:flutter_template/data/repositories/user.repository.dart';
 import 'package:flutter_template/di/di.dart';
 import 'package:flutter_template/flavors.dart';
-import 'package:flutter_template/modules/auth/bloc/auth/auth.bloc.dart';
+import 'package:flutter_template/features/auth/bloc/auth/auth.bloc.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});

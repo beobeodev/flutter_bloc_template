@@ -2,8 +2,8 @@ import 'package:flutter_template/common/constants/env_keys.dart';
 
 enum Flavor {
   DEV,
-  QA,
   STAGING,
+  PROD,
 }
 
 class AppFlavor {
@@ -15,12 +15,12 @@ class AppFlavor {
     switch (appFlavor) {
       case Flavor.DEV:
         return 'Flutter Template DEV';
-      case Flavor.QA:
-        return 'Flutter Template QA';
       case Flavor.STAGING:
+        return 'Flutter Template STAGING';
+      case Flavor.PROD:
         return 'Flutter Template';
       default:
-        return 'title';
+        return 'Flutter Template DEV';
     }
   }
 }

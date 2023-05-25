@@ -7,6 +7,6 @@ Future<void> main() async {
     () {
       return const App();
     },
-    Flavor.STAGING,
+    Flavor.PROD,
   );
 }

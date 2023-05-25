@@ -110,7 +110,7 @@ $ mason get
 ```
 
 Then you can use 'mason make' to generate bricks.
-Suppose you want to generate a clean module with getx, you should run
+Suppose you want to generate a module with bloc, you should run
 
 ```bash
 $ mason make bloc_module -o lib/modules

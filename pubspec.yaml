@@ -41,7 +41,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   dio: ^5.1.1
-  easy_localization: ^3.0.1
+  easy_localization: ^3.0.2
   bloc: ^8.1.0
   flutter_bloc: ^8.1.2
   async: ^2.9.0
@@ -81,22 +81,22 @@ flavorizr:
         applicationId: 'com.fluttertemplate.dev'
       ios:
         bundleId: 'com.fluttertemplate.dev'
-    qa:
-      app:
-        name: 'Flutter Template QA'
-        icon: 'assets/icons/launcher/app_icon.png'
-      android:
-        applicationId: 'com.fluttertemplate.qa'
-      ios:
-        bundleId: 'com.fluttertemplate.qa'
     staging:
       app:
-        name: 'Flutter Template'
+        name: 'Flutter Template Staging'
         icon: 'assets/icons/launcher/app_icon.png'
       android:
         applicationId: 'com.fluttertemplate.staging'
       ios:
         bundleId: 'com.fluttertemplate.staging'
+    prod:
+      app:
+        name: 'Flutter Template'
+        icon: 'assets/icons/launcher/app_icon.png'
+      android:
+        applicationId: 'com.fluttertemplate.prod'
+      ios:
+        bundleId: 'com.fluttertemplate.prod'
 
 # The following section is specific to Flutter packages.
 flutter:

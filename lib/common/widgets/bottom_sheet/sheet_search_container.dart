@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/extensions/context_extension.dart';
-import 'package:flutter_template/common/widgets/bottom_sheet/sheet_header.widget.dart';
-import 'package:flutter_template/common/widgets/bottom_sheet/sheet_search_field.widget.dart';
+import 'package:flutter_template/common/widgets/bottom_sheet/sheet_header.dart';
+import 'package:flutter_template/common/widgets/bottom_sheet/sheet_search_field.dart';
 
 class SheetSearchContainer extends StatelessWidget {
   final String title;

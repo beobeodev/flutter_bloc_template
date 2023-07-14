@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/common/widgets/dismissible/custom_dismissible.widget.dart'
+import 'package:flutter_template/common/widgets/dismissible/custom_dismissible.dart'
     as common;
-import 'package:flutter_template/common/widgets/dismissible/dismiss_background.widget.dart';
+import 'package:flutter_template/common/widgets/dismissible/dismiss_background.dart';
 
 class CommonDismissible extends StatelessWidget {
   final Key valueKey;

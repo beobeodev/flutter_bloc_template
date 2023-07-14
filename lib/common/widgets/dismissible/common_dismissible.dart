@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/common/widgets/dismissible/custom_dismissible.dart'
+import 'package:flutter_template/common/widgets/dismissible/original_dismissible.dart'
     as common;
 import 'package:flutter_template/common/widgets/dismissible/dismiss_background.dart';
 

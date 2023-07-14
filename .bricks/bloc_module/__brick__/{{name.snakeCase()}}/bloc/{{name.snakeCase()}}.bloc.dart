@@ -1,1 +1,0 @@
-{{#use_freezed}}{{> freezed_bloc }}{{/use_freezed}}{{#use_equatable}}{{> equatable_bloc }}{{/use_equatable}}{{#use_basic}}{{> basic_bloc }}{{/use_basic}}

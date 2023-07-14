@@ -2,12 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/common/constants/locales.dart';
+import 'package:flutter_template/common/theme/app_theme.dart';
 import 'package:flutter_template/generated/codegen_loader.g.dart';
 import 'package:flutter_template/router/app_router.dart';
-import 'package:flutter_template/data/repositories/user.repository.dart';
+import 'package:flutter_template/data/repositories/user_repository.dart';
 import 'package:flutter_template/di/di.dart';
 import 'package:flutter_template/flavors.dart';
-import 'package:flutter_template/presentation/auth/bloc/auth/auth.bloc.dart';
+import 'package:flutter_template/presentation/auth/bloc/auth/auth_bloc.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -45,10 +46,7 @@ class _AppState extends State<App> {
               child: MaterialApp(
                 navigatorKey: _navigatorKey,
                 title: AppFlavor.title,
-                theme: ThemeData(
-                  primarySwatch: Colors.blue,
-                ),
-                // routerConfig: AppRoutes.router,
+                theme: AppTheme.themeData,
                 onGenerateRoute: AppRouter.onGenerateRoute,
                 initialRoute: AppRouter.splash,
                 localizationsDelegates: context.localizationDelegates,

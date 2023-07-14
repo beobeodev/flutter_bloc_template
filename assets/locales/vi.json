@@ -8,7 +8,8 @@
   },
   "button": {
     "cancel": "Hủy",
-    "confirm": "Xác nhận"
+    "confirm": "Xác nhận",
+    "try_again": "Thử lại"
   },
   "root": {
     "home": "Trang chủ",

@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:developer';
 
@@ -13,16 +12,16 @@ import 'package:hive_flutter/hive_flutter.dart';
 typedef BootstrapBuilder = FutureOr<Widget> Function();
 
 Future<void> bootstrap(BootstrapBuilder builder, Flavor flavor) async {
-  WidgetsFlutterBinding.ensureInitialized();
-  AppFlavor.appFlavor = flavor;
-
-  await initializeApp();
-
   await runZonedGuarded(
-    () async => {
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      AppFlavor.appFlavor = flavor;
+
+      await initializeApp();
+
       runApp(
         await builder(),
-      )
+      );
     },
     (error, stack) =>
         log(error.toString(), stackTrace: stack, name: 'runZonedGuarded'),

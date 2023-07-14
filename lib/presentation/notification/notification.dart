@@ -1,2 +1,2 @@
-export 'bloc/notification.bloc.dart';
-export 'view/notification.view.dart';
+export 'bloc/notification_bloc.dart';
+export 'view/notification_view.dart';

@@ -1,7 +1,4 @@
-# Register bricks which can be consumed via the Mason CLI.
-# https://github.com/felangel/mason
 bricks:
-  bloc_module:
-    path: .bricks/bloc_module
-  bloc:
-    path: .bricks/bloc
+  bloc: ^0.3.0
+  cubit: ^0.2.0
+  feature_route_bloc: ^0.3.0

@@ -1,5 +1,5 @@
 abstract class AppSize {
-  static const double horizontalSpace = 20;
+  static const double horizontalSpacing = 20;
   static const double cardRadius = 10;
 
   // App bar

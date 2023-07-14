@@ -8,4 +8,9 @@ abstract class AppTheme {
       color: Colors.black.withOpacity(0.1),
     )
   ];
+
+  static final ThemeData themeData = ThemeData(
+    fontFamily: 'Mulish',
+    scaffoldBackgroundColor: Colors.white,
+  );
 }

@@ -1,1 +1,0 @@
-{{#use_freezed}}{{> freezed_event }}{{/use_freezed}}{{#use_equatable}}{{> equatable_event }}{{/use_equatable}}{{#use_basic}}{{> basic_event }}{{/use_basic}}

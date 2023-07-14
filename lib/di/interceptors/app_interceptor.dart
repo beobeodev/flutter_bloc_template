@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_template/common/constants/hive_keys.dart';
-import 'package:flutter_template/data/dtos/auth/refresh_token.dto.dart';
+import 'package:flutter_template/data/dtos/auth/refresh_token_dto.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 

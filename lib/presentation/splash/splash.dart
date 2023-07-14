@@ -1,2 +1,2 @@
-export 'bloc/splash.bloc.dart';
-export 'view/splash.view.dart';
+export 'bloc/splash_bloc.dart';
+export 'view/splash_view.dart';

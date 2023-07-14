@@ -5,14 +5,14 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter_template/common/helpers/dio.helper.dart' as _i7;
-import 'package:flutter_template/data/datasources/user/local/user.datasource.dart'
+import 'package:flutter_template/common/helpers/dio_helper.dart' as _i7;
+import 'package:flutter_template/data/datasources/user/local/user_datasource.dart'
     as _i6;
-import 'package:flutter_template/data/datasources/user/remote/user.datasource.dart'
+import 'package:flutter_template/data/datasources/user/remote/user_datasource.dart'
     as _i8;
-import 'package:flutter_template/data/datasources/user/user.datasource.dart'
+import 'package:flutter_template/data/datasources/user/user_datasource.dart'
     as _i9;
-import 'package:flutter_template/data/repositories/user.repository.dart'
+import 'package:flutter_template/data/repositories/user_repository.dart'
     as _i10;
 import 'package:flutter_template/di/modules/local_module.dart' as _i11;
 import 'package:flutter_template/di/modules/network_module.dart' as _i12;

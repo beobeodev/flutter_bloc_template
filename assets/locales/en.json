@@ -8,7 +8,8 @@
   },
   "button": {
     "cancel": "Cancel",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "try_again": "Try again"
   },
   "root": {
     "home": "Home",

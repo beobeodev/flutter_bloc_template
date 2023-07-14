@@ -2,9 +2,9 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   exclude:
-    - "**.config.dart"
-    - "**.g.dart"
-    - "**.gen.dart"
+    - '**.config.dart'
+    - '**.g.dart'
+    - '**.gen.dart'
     - .bricks/
 
 linter:
@@ -27,4 +27,3 @@ linter:
     # PREFER using const for instantiating constant constructors.
     prefer_const_constructors: true
     unnecessary_null_checks: true
-    sort_constructors_first: true

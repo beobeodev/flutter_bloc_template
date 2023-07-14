@@ -10,7 +10,7 @@ class CodegenLoader extends AssetLoader{
   const CodegenLoader();
 
   @override
-  Future<Map<String, dynamic>> load(String fullPath, Locale locale ) {
+  Future<Map<String, dynamic>?> load(String path, Locale locale) {
     return Future.value(mapLocales[locale.toString()]);
   }
 
@@ -24,7 +24,8 @@ class CodegenLoader extends AssetLoader{
   },
   "button": {
     "cancel": "Cancel",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "try_again": "Try again"
   },
   "root": {
     "home": "Home",
@@ -55,7 +56,8 @@ static const Map<String,dynamic> vi = {
   },
   "button": {
     "cancel": "Hủy",
-    "confirm": "Xác nhận"
+    "confirm": "Xác nhận",
+    "try_again": "Thử lại"
   },
   "root": {
     "home": "Trang chủ",

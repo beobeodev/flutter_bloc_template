@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import 'package:flutter_template/common/helpers/dio.helper.dart';
+import 'package:flutter_template/common/helpers/dio_helper.dart';
 import 'package:flutter_template/di/providers/dio_provider.dart';
 
 @module

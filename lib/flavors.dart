@@ -1,4 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_template/common/constants/env_keys.dart';
+import 'package:flutter_template/generated/firebase_options/firebase_options_dev.dart' as firebase_option_dev;
+import 'package:flutter_template/generated/firebase_options/firebase_options_staging.dart' as firebase_options_staging;
+import 'package:flutter_template/generated/firebase_options/firebase_options_prod.dart' as firebase_options_prod;
 
 enum Flavor {
   DEV,
@@ -22,5 +26,14 @@ class AppFlavor {
       default:
         return 'Flutter Template DEV';
     }
+  }
+
+  static FirebaseOptions get firebaseOptions {
+    return switch (appFlavor) {
+      Flavor.DEV => firebase_option_dev.DefaultFirebaseOptions.currentPlatform,
+      Flavor.STAGING => firebase_options_staging.DefaultFirebaseOptions.currentPlatform,
+      Flavor.PROD => firebase_options_prod.DefaultFirebaseOptions.currentPlatform,
+      _ => firebase_option_dev.DefaultFirebaseOptions.currentPlatform,
+    };
   }
 }

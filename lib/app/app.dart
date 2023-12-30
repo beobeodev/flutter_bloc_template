@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_template/common/constants/locales.dart';
 import 'package:flutter_template/common/theme/app_theme.dart';
 import 'package:flutter_template/generated/codegen_loader.g.dart';
@@ -43,39 +44,45 @@ class _AppState extends State<App> {
               create: (context) => AuthBloc(
                 userRepository: getIt.get<UserRepository>(),
               ),
-              child: MaterialApp(
-                navigatorKey: _navigatorKey,
-                title: AppFlavor.title,
-                theme: AppTheme.themeData,
-                onGenerateRoute: AppRouter.onGenerateRoute,
-                initialRoute: AppRouter.splash,
-                localizationsDelegates: context.localizationDelegates,
-                supportedLocales: context.supportedLocales,
-                locale: context.locale,
-                debugShowCheckedModeBanner: false,
-                builder: (_, child) {
-                  return BlocListener<AuthBloc, AuthState>(
-                    listener: (_, state) {
-                      switch (state.status) {
-                        case AuthenticationStatus.unknown:
-                          break;
-                        case AuthenticationStatus.authenticated:
-                          _navigator.pushNamedAndRemoveUntil(
-                            AppRouter.root,
-                            (route) => false,
-                          );
-                          break;
-                        case AuthenticationStatus.unauthenticated:
-                          _navigator.pushNamedAndRemoveUntil(
-                            AppRouter.login,
-                            (route) => false,
-                          );
-                          break;
-                      }
-                    },
-                    child: child,
-                  );
-                },
+              child: ScreenUtilInit(
+                designSize: const Size(414, 896), // View-port size of iphone XS max
+                minTextAdapt: true,
+                splitScreenMode: true,
+                useInheritedMediaQuery: true,
+                child: MaterialApp(
+                  navigatorKey: _navigatorKey,
+                  title: AppFlavor.title,
+                  theme: AppTheme.themeData,
+                  onGenerateRoute: AppRouter.onGenerateRoute,
+                  initialRoute: AppRouter.splash,
+                  localizationsDelegates: context.localizationDelegates,
+                  supportedLocales: context.supportedLocales,
+                  locale: context.locale,
+                  debugShowCheckedModeBanner: false,
+                  builder: (_, child) {
+                    return BlocListener<AuthBloc, AuthState>(
+                      listener: (_, state) {
+                        switch (state.status) {
+                          case AuthenticationStatus.unknown:
+                            break;
+                          case AuthenticationStatus.authenticated:
+                            _navigator.pushNamedAndRemoveUntil(
+                              AppRouter.root,
+                              (route) => false,
+                            );
+                            break;
+                          case AuthenticationStatus.unauthenticated:
+                            _navigator.pushNamedAndRemoveUntil(
+                              AppRouter.login,
+                              (route) => false,
+                            );
+                            break;
+                        }
+                      },
+                      child: child,
+                    );
+                  },
+                ),
               ),
             );
           },

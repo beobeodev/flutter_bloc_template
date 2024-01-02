@@ -5,7 +5,7 @@ import 'package:flutter_template/common/extensions/string_extension.dart';
 import 'package:flutter_template/common/theme/app_size.dart';
 import 'package:flutter_template/common/theme/text_styles.dart';
 import 'package:flutter_template/common/utils/toast_util.dart';
-import 'package:flutter_template/common/widgets/common_rounded_button.dart';
+import 'package:flutter_template/presentation/widgets/common_rounded_button.dart';
 import 'package:flutter_template/data/repositories/user_repository.dart';
 import 'package:flutter_template/di/di.dart';
 import 'package:flutter_template/generated/locale_keys.g.dart';

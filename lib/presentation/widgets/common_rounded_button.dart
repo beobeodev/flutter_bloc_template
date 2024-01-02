@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/theme/color_styles.dart';
 import 'package:flutter_template/common/theme/text_styles.dart';
-import 'package:flutter_template/common/widgets/loading_dot.dart';
+import 'package:flutter_template/presentation/widgets/loading_dot.dart';
 
 class CommonRoundedButton extends StatelessWidget {
   CommonRoundedButton({
@@ -22,8 +22,7 @@ class CommonRoundedButton extends StatelessWidget {
     this.suffixIcon,
     this.child,
     this.borderSide,
-  })  : textStyle =
-            textStyle ?? TextStyles.s14BoldText.copyWith(color: Colors.white),
+  })  : textStyle = textStyle ?? TextStyles.s14BoldText.copyWith(color: Colors.white),
         super(key: key);
 
   final VoidCallback onPressed;

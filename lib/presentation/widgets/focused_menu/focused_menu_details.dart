@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/common/widgets/focused_menu/focused_menu_item.dart';
+import 'package:flutter_template/presentation/widgets/focused_menu/focused_menu_item.dart';
 
 class FocusedMenuDetails extends StatelessWidget {
   final List<FocusedMenuItem> menuItems;
@@ -45,8 +45,7 @@ class FocusedMenuDetails extends StatelessWidget {
     final leftOffset = (childOffset.dx + maxMenuWidth) < size.width
         ? childOffset.dx
         : (childOffset.dx - maxMenuWidth + childSize!.width);
-    final topOffset = (childOffset.dy + menuHeight + childSize!.height) <
-            size.height - bottomOffsetHeight!
+    final topOffset = (childOffset.dy + menuHeight + childSize!.height) < size.height - bottomOffsetHeight!
         ? childOffset.dy + childSize!.height + menuOffset!
         : childOffset.dy - menuHeight - menuOffset!;
 
@@ -87,8 +86,7 @@ class FocusedMenuDetails extends StatelessWidget {
                 decoration: menuBoxDecoration ??
                     BoxDecoration(
                       color: Colors.grey.shade200,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(5.0)),
+                      borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                       boxShadow: const [
                         BoxShadow(
                           color: Colors.black38,

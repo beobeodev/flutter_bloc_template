@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/common/theme/app_size.dart';
 import 'package:flutter_template/common/theme/color_styles.dart';
 import 'package:flutter_template/common/theme/text_styles.dart';
-import 'package:flutter_template/common/widgets/common_back_button.dart';
+import 'package:flutter_template/presentation/widgets/common_back_button.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CommonAppBar({
@@ -53,8 +53,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? title
           : Text(
               title,
-              style:
-                  TextStyles.boldText.copyWith(color: titleColor, fontSize: 16),
+              style: TextStyles.boldText.copyWith(color: titleColor, fontSize: 16),
             ),
       bottom: bottom != null
           ? PreferredSize(
@@ -63,9 +62,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : null,
       actions: actions,
-      leading: (automaticallyImplyLeading && Navigator.of(context).canPop())
-          ? const CommonBackButton()
-          : null,
+      leading: (automaticallyImplyLeading && Navigator.of(context).canPop()) ? const CommonBackButton() : null,
     );
   }
 

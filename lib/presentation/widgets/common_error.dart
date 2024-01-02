@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/common/extensions/context_extension.dart';
 import 'package:flutter_template/common/theme/color_styles.dart';
 import 'package:flutter_template/common/theme/text_styles.dart';
-import 'package:flutter_template/common/widgets/common_rounded_button.dart';
+import 'package:flutter_template/presentation/widgets/common_rounded_button.dart';
 import 'package:flutter_template/generated/assets.gen.dart';
 import 'package:flutter_template/generated/locale_keys.g.dart';
 
@@ -22,8 +22,7 @@ class CommonError extends StatelessWidget {
           ),
           Text(
             LocaleKeys.texts_error_occur.tr(),
-            style:
-                TextStyles.s17RegularText.copyWith(color: ColorStyles.red500),
+            style: TextStyles.s17RegularText.copyWith(color: ColorStyles.red500),
             textAlign: TextAlign.center,
           ),
           if (onRefresh != null)
@@ -33,7 +32,7 @@ class CommonError extends StatelessWidget {
                 onPressed: onRefresh!,
                 content: LocaleKeys.button_try_again.tr(),
               ),
-            )
+            ),
         ],
       ),
     );

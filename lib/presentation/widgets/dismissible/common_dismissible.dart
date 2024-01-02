@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/common/widgets/dismissible/original_dismissible.dart'
-    as common;
-import 'package:flutter_template/common/widgets/dismissible/dismiss_background.dart';
+import 'package:flutter_template/presentation/widgets/dismissible/original_dismissible.dart' as common;
+import 'package:flutter_template/presentation/widgets/dismissible/dismiss_background.dart';
 
 class CommonDismissible extends StatelessWidget {
   final Key valueKey;
@@ -23,9 +22,7 @@ class CommonDismissible extends StatelessWidget {
   Widget build(BuildContext context) {
     return common.CustomDismissible(
       key: valueKey,
-      direction: hasDismiss
-          ? common.DismissDirection.endToStart
-          : common.DismissDirection.none,
+      direction: hasDismiss ? common.DismissDirection.endToStart : common.DismissDirection.none,
       resizeDuration: const Duration(milliseconds: 100),
       onDismissed: (_) => onDismissed?.call(),
       background: DismissBackground(

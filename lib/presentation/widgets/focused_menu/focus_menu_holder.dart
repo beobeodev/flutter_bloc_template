@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/common/widgets/focused_menu/focused_menu_details.dart';
-import 'package:flutter_template/common/widgets/focused_menu/focused_menu_item.dart';
+import 'package:flutter_template/presentation/widgets/focused_menu/focused_menu_details.dart';
+import 'package:flutter_template/presentation/widgets/focused_menu/focused_menu_item.dart';
 
 class FocusedMenuHolderController {
   late _FocusedMenuHolderState _widgetState;
@@ -82,8 +82,7 @@ class _FocusedMenuHolderState extends State<FocusedMenuHolder> {
   Size? childSize;
 
   void _getOffset() {
-    RenderBox renderBox =
-        containerKey.currentContext!.findRenderObject() as RenderBox;
+    RenderBox renderBox = containerKey.currentContext!.findRenderObject() as RenderBox;
     Size size = renderBox.size;
     Offset offset = renderBox.localToGlobal(Offset.zero);
     setState(() {
@@ -118,8 +117,7 @@ class _FocusedMenuHolderState extends State<FocusedMenuHolder> {
     await Navigator.push(
       context,
       PageRouteBuilder(
-        transitionDuration:
-            widget.duration ?? const Duration(milliseconds: 100),
+        transitionDuration: widget.duration ?? const Duration(milliseconds: 100),
         pageBuilder: (context, animation, secondaryAnimation) {
           animation = Tween(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(parent: animation, curve: Curves.linear),

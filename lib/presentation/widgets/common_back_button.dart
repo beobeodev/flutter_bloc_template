@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/theme/color_styles.dart';
-import 'package:flutter_template/common/widgets/common_icon_button.dart';
+import 'package:flutter_template/presentation/widgets/common_icon_button.dart';
 
 class CommonBackButton extends StatelessWidget {
   const CommonBackButton({

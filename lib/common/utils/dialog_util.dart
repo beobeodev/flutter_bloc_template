@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/theme/color_styles.dart';
 import 'package:flutter_template/common/theme/text_styles.dart';
-import 'package:flutter_template/common/widgets/common_rounded_button.dart';
-import 'package:flutter_template/common/widgets/custom_popup_route.dart';
+import 'package:flutter_template/presentation/widgets/common_rounded_button.dart';
+import 'package:flutter_template/presentation/widgets/custom_popup_route.dart';
 import 'package:flutter_template/generated/locale_keys.g.dart';
 
 abstract class DialogUtil {
@@ -101,13 +101,11 @@ abstract class DialogUtil {
               height: 45,
             ),
           ],
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           actionsPadding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
           titlePadding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
           buttonPadding: EdgeInsets.zero,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         );
       },
     );

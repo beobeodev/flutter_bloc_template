@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/theme/app_size.dart';
 import 'package:flutter_template/common/theme/color_styles.dart';
-import 'package:flutter_template/common/widgets/common_text_form_field.dart';
+import 'package:flutter_template/presentation/widgets/common_text_form_field.dart';
 
 class SheetSearchField extends StatelessWidget {
   final String hintText;

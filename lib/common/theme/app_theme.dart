@@ -6,7 +6,7 @@ abstract class AppTheme {
       blurRadius: 12,
       offset: const Offset(0, 2),
       color: Colors.black.withOpacity(0.1),
-    )
+    ),
   ];
 
   static final ThemeData themeData = ThemeData(

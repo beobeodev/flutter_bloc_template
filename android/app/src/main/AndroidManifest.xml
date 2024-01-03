@@ -38,5 +38,9 @@
     </receiver>
     <!-- use notification actions -->
     <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver" />
+    <!-- Gogle admob -->
+    <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1062132590367814~8306238538"/>
   </application>
 </manifest>

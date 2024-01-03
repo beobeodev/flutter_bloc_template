@@ -48,7 +48,7 @@ class AppInterceptor extends QueuedInterceptor {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     if (err.response?.statusCode == 401) {
       // HACK: handle logout, maybe
 
@@ -66,9 +66,7 @@ class AppInterceptor extends QueuedInterceptor {
   Future<void> _checkTokenExpired() async {
     final String? expiredTime = _authBox.get(HiveKeys.expiresIn);
 
-    if (expiredTime != null &&
-        DateTime.parse(expiredTime)
-            .isBefore(DateTime.now().add(const Duration(seconds: 3)))) {
+    if (expiredTime != null && DateTime.parse(expiredTime).isBefore(DateTime.now().add(const Duration(seconds: 3)))) {
       await _refreshToken();
     }
   }
@@ -87,8 +85,7 @@ class AppInterceptor extends QueuedInterceptor {
     try {
       final Response response = await _dio.get('');
 
-      final RefreshTokenDTO refreshTokenDTO =
-          RefreshTokenDTO.fromJson(response.data);
+      final RefreshTokenDTO refreshTokenDTO = RefreshTokenDTO.fromJson(response.data);
 
       await _authBox.putAll(refreshTokenDTO.toLocalJson());
     } catch (err) {

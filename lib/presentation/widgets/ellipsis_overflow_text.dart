@@ -19,7 +19,7 @@ class EllipsisOverflowText extends StatelessWidget {
     this.textAlign,
     this.textDirection,
     this.textHeightBehavior,
-    this.textScaleFactor,
+    this.textScaler,
     this.textWidthBasis,
   })  : assert(
           maxLines == null || maxLines > 0,
@@ -40,7 +40,7 @@ class EllipsisOverflowText extends StatelessWidget {
   final TextDirection? textDirection;
   final Locale? locale;
   final bool? softWrap;
-  final double? textScaleFactor;
+  final TextScaler? textScaler;
   final String? semanticsLabel;
   final TextWidthBasis? textWidthBasis;
   final TextHeightBehavior? textHeightBehavior;
@@ -58,8 +58,7 @@ class EllipsisOverflowText extends StatelessWidget {
 
     final textHeight = boxes.first.toRect().height;
 
-    final maxLines = constraints.maxHeight ~/
-        (textHeight - (textPainter.text?.style?.height ?? 1));
+    final maxLines = constraints.maxHeight ~/ (textHeight - (textPainter.text?.style?.height ?? 1));
 
     if (maxLines < 1) {
       return null;
@@ -68,25 +67,24 @@ class EllipsisOverflowText extends StatelessWidget {
     return maxLines;
   }
 
-  List _loadData(
-    constraints,
-    TextStyle style,
-    double? textScale,
+  List _loadData({
+    required BoxConstraints constraints,
+    required TextStyle style,
+    required TextScaler textScaler,
     int? initMaxLines,
-  ) {
+  }) {
     final textPainter = TextPainter(
       text: TextSpan(text: data, style: style),
       textDirection: TextDirection.ltr,
       locale: locale ?? style.locale,
-      textScaleFactor: textScale ?? 1,
+      textScaler: textScaler,
       textHeightBehavior: textHeightBehavior,
       strutStyle: strutStyle,
     );
 
     textPainter.layout(maxWidth: constraints.maxWidth);
 
-    int? finalMaxLines =
-        initMaxLines ?? _calculateMaxLines(constraints, textPainter);
+    int? finalMaxLines = initMaxLines ?? _calculateMaxLines(constraints, textPainter);
 
     return [finalMaxLines, data];
   }
@@ -112,12 +110,16 @@ class EllipsisOverflowText extends StatelessWidget {
           );
         }
 
-        final textScale =
-            textScaleFactor ?? MediaQuery.textScaleFactorOf(context);
+        final defaultTextScaler = textScaler ?? MediaQuery.of(context).textScaler;
 
         int? maxLinesFinal = maxLines ?? defaultTextStyle.maxLines;
 
-        final r = _loadData(constraints, textStyle, textScale, maxLinesFinal);
+        final r = _loadData(
+          constraints: constraints,
+          style: textStyle,
+          textScaler: defaultTextScaler,
+          initMaxLines: maxLinesFinal,
+        );
 
         String newString = r[1];
         maxLinesFinal = r[0];
@@ -132,7 +134,7 @@ class EllipsisOverflowText extends StatelessWidget {
           softWrap: softWrap,
           textDirection: textDirection,
           textWidthBasis: textWidthBasis,
-          textScaleFactor: textScale,
+          textScaler: defaultTextScaler,
           locale: locale,
           selectionColor: selectionColor,
           semanticsLabel: semanticsLabel,

@@ -43,4 +43,7 @@ abstract class ColorStyles {
   static const Color antiFlashWhite = Color(0xFFEFF4F7);
   static Color scaffoldBackgroundColor = Colors.grey[50]!;
   // static const Color lavenderSilver = Color(0xFFFDEFEF);
+
+  // Ads
+  static const Color adsBackground = Color(0xFF2F2F2F);
 }

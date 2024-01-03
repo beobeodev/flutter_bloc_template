@@ -3,7 +3,7 @@ import 'package:flutter_template/presentation/auth/views/login_view.dart';
 import 'package:flutter_template/presentation/core/views/root_view.dart';
 import 'package:flutter_template/presentation/splash/splash.dart';
 
-abstract class AppRouter {
+abstract final class AppRouter {
   static const String splash = '/';
 
   // Auth

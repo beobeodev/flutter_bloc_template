@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/theme/color_styles.dart';
 import 'package:flutter_template/common/theme/text_styles.dart';
+import 'package:flutter_template/generated/locale_keys.g.dart';
 import 'package:flutter_template/presentation/widgets/common_rounded_button.dart';
 import 'package:flutter_template/presentation/widgets/custom_popup_route.dart';
-import 'package:flutter_template/generated/locale_keys.g.dart';
 
 abstract class DialogUtil {
   static bool _isDialogOpen = false;
@@ -22,8 +22,8 @@ abstract class DialogUtil {
 
     Navigator.of(context).push(
       CustomPopupRoute(
-        child: WillPopScope(
-          onWillPop: () async => false,
+        child: PopScope(
+          canPop: false,
           child: Center(
             child: Container(
               height: 60,

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/widgets/focused_menu/focused_menu_details.dart';
 import 'package:flutter_template/presentation/widgets/focused_menu/focused_menu_item.dart';
@@ -110,7 +112,7 @@ class _FocusedMenuHolderState extends State<FocusedMenuHolder> {
     );
   }
 
-  Future openMenu(BuildContext context) async {
+  Future<void> openMenu(BuildContext context) async {
     _getOffset();
     widget.onOpened?.call();
 

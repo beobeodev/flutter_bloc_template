@@ -121,7 +121,7 @@ class CommonRoundedButton extends StatelessWidget {
                               const SizedBox(
                                 width: 15,
                               ),
-                              suffixIcon!
+                              suffixIcon!,
                             ],
                           ),
                       ],

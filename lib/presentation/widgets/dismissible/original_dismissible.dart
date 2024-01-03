@@ -294,8 +294,7 @@ class _DismissibleClipper extends CustomClipper<Rect> {
 
   @override
   bool shouldReclip(_DismissibleClipper oldClipper) {
-    return oldClipper.axis != axis ||
-        oldClipper.moveAnimation.value != moveAnimation.value;
+    return oldClipper.axis != axis || oldClipper.moveAnimation.value != moveAnimation.value;
   }
 }
 
@@ -306,10 +305,9 @@ class _CustomDismissibleState extends State<CustomDismissible>
   @override
   void initState() {
     super.initState();
-    _moveController =
-        AnimationController(duration: widget.movementDuration, vsync: this)
-          ..addStatusListener(_handleDismissStatusChanged)
-          ..addListener(_handleDismissUpdateValueChanged);
+    _moveController = AnimationController(duration: widget.movementDuration, vsync: this)
+      ..addStatusListener(_handleDismissStatusChanged)
+      ..addListener(_handleDismissUpdateValueChanged);
     _updateMoveAnimation();
   }
 
@@ -328,9 +326,7 @@ class _CustomDismissibleState extends State<CustomDismissible>
   final GlobalKey _contentKey = GlobalKey();
 
   @override
-  bool get wantKeepAlive =>
-      (_moveController?.isAnimating ?? false) ||
-      (_resizeController?.isAnimating ?? false);
+  bool get wantKeepAlive => (_moveController?.isAnimating ?? false) || (_resizeController?.isAnimating ?? false);
 
   @override
   void dispose() {
@@ -352,13 +348,9 @@ class _CustomDismissibleState extends State<CustomDismissible>
     if (_directionIsXAxis) {
       switch (Directionality.of(context)) {
         case TextDirection.rtl:
-          return extent < 0
-              ? DismissDirection.startToEnd
-              : DismissDirection.endToStart;
+          return extent < 0 ? DismissDirection.startToEnd : DismissDirection.endToStart;
         case TextDirection.ltr:
-          return extent > 0
-              ? DismissDirection.startToEnd
-              : DismissDirection.endToStart;
+          return extent > 0 ? DismissDirection.startToEnd : DismissDirection.endToStart;
       }
     }
     return extent > 0 ? DismissDirection.down : DismissDirection.up;
@@ -381,8 +373,7 @@ class _CustomDismissibleState extends State<CustomDismissible>
     }
     _dragUnderway = true;
     if (_moveController!.isAnimating) {
-      _dragExtent =
-          _moveController!.value * _overallDragAxisExtent * _dragExtent.sign;
+      _dragExtent = _moveController!.value * _overallDragAxisExtent * _dragExtent.sign;
       _moveController!.stop();
     } else {
       _dragExtent = 0.0;
@@ -460,8 +451,8 @@ class _CustomDismissibleState extends State<CustomDismissible>
   void _handleDismissUpdateValueChanged() {
     if (widget.onUpdate != null) {
       final bool oldDismissThresholdReached = _dismissThresholdReached;
-      _dismissThresholdReached = _moveController!.value >
-          (widget.dismissThresholds[_dismissDirection] ?? _kDismissThreshold);
+      _dismissThresholdReached =
+          _moveController!.value > (widget.dismissThresholds[_dismissDirection] ?? _kDismissThreshold);
       final DismissUpdateDetails details = DismissUpdateDetails(
         direction: _dismissDirection,
         reached: _dismissThresholdReached,
@@ -477,9 +468,7 @@ class _CustomDismissibleState extends State<CustomDismissible>
     _moveAnimation = _moveController!.drive(
       Tween<Offset>(
         begin: Offset.zero,
-        end: _directionIsXAxis
-            ? Offset(end, widget.crossAxisEndOffset)
-            : Offset(widget.crossAxisEndOffset, end),
+        end: _directionIsXAxis ? Offset(end, widget.crossAxisEndOffset) : Offset(widget.crossAxisEndOffset, end),
       ),
     );
   }
@@ -498,15 +487,13 @@ class _CustomDismissibleState extends State<CustomDismissible>
     DismissDirection flingDirection;
     // Verify that the fling is in the generally right direction and fast enough.
     if (_directionIsXAxis) {
-      if (vx.abs() - vy.abs() < _kMinFlingVelocityDelta ||
-          vx.abs() < _kMinFlingVelocity) {
+      if (vx.abs() - vy.abs() < _kMinFlingVelocityDelta || vx.abs() < _kMinFlingVelocity) {
         return _FlingGestureKind.none;
       }
       assert(vx != 0.0);
       flingDirection = _extentToDirection(vx);
     } else {
-      if (vy.abs() - vx.abs() < _kMinFlingVelocityDelta ||
-          vy.abs() < _kMinFlingVelocity) {
+      if (vy.abs() - vx.abs() < _kMinFlingVelocityDelta || vy.abs() < _kMinFlingVelocity) {
         return _FlingGestureKind.none;
       }
       assert(vy != 0.0);
@@ -527,36 +514,29 @@ class _CustomDismissibleState extends State<CustomDismissible>
       _handleMoveCompleted();
       return;
     }
-    final double flingVelocity = _directionIsXAxis
-        ? details.velocity.pixelsPerSecond.dx
-        : details.velocity.pixelsPerSecond.dy;
+    final double flingVelocity =
+        _directionIsXAxis ? details.velocity.pixelsPerSecond.dx : details.velocity.pixelsPerSecond.dy;
     switch (_describeFlingGesture(details.velocity)) {
       case _FlingGestureKind.forward:
         assert(_dragExtent != 0.0);
         assert(!_moveController!.isDismissed);
-        if ((widget.dismissThresholds[_dismissDirection] ??
-                _kDismissThreshold) >=
-            1.0) {
+        if ((widget.dismissThresholds[_dismissDirection] ?? _kDismissThreshold) >= 1.0) {
           _moveController!.reverse();
           break;
         }
         _dragExtent = flingVelocity.sign;
-        _moveController!
-            .fling(velocity: flingVelocity.abs() * _kFlingVelocityScale);
+        _moveController!.fling(velocity: flingVelocity.abs() * _kFlingVelocityScale);
         break;
       case _FlingGestureKind.reverse:
         assert(_dragExtent != 0.0);
         assert(!_moveController!.isDismissed);
         _dragExtent = flingVelocity.sign;
-        _moveController!
-            .fling(velocity: -flingVelocity.abs() * _kFlingVelocityScale);
+        _moveController!.fling(velocity: -flingVelocity.abs() * _kFlingVelocityScale);
         break;
       case _FlingGestureKind.none:
         if (!_moveController!.isDismissed) {
           // we already know it's not completed, we check that above
-          if (_moveController!.value >
-              (widget.dismissThresholds[_dismissDirection] ??
-                  _kDismissThreshold)) {
+          if (_moveController!.value > (widget.dismissThresholds[_dismissDirection] ?? _kDismissThreshold)) {
             _moveController!.forward();
           } else {
             _moveController!.reverse();
@@ -576,8 +556,7 @@ class _CustomDismissibleState extends State<CustomDismissible>
   }
 
   Future<void> _handleMoveCompleted() async {
-    if ((widget.dismissThresholds[_dismissDirection] ?? _kDismissThreshold) >=
-        1.0) {
+    if ((widget.dismissThresholds[_dismissDirection] ?? _kDismissThreshold) >= 1.0) {
       _moveController!.reverse();
       return;
     }
@@ -614,10 +593,9 @@ class _CustomDismissibleState extends State<CustomDismissible>
         widget.onDismissed!(direction);
       }
     } else {
-      _resizeController =
-          AnimationController(duration: widget.resizeDuration, vsync: this)
-            ..addListener(_handleResizeProgressChanged)
-            ..addStatusListener((AnimationStatus status) => updateKeepAlive());
+      _resizeController = AnimationController(duration: widget.resizeDuration, vsync: this)
+        ..addListener(_handleResizeProgressChanged)
+        ..addStatusListener((AnimationStatus status) => updateKeepAlive());
       _resizeController!.forward();
       setState(() {
         _sizePriorToCollapse = context.size;
@@ -654,8 +632,7 @@ class _CustomDismissibleState extends State<CustomDismissible>
     Widget? background = widget.background;
     if (widget.secondaryBackground != null) {
       final DismissDirection direction = _dismissDirection;
-      if (direction == DismissDirection.endToStart ||
-          direction == DismissDirection.up) {
+      if (direction == DismissDirection.endToStart || direction == DismissDirection.up) {
         background = widget.secondaryBackground;
       }
     }

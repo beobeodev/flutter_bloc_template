@@ -52,5 +52,8 @@
       <string>en</string>
       <string>vi</string>
     </array>
+    <!-- Google admob -->
+    <key>GADApplicationIdentifier</key>
+    <string>ca-app-pub-1062132590367814~7567818034</string>
   </dict>
 </plist>

@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_template/common/constants/env_keys.dart';
 import 'package:flutter_template/generated/firebase_options/firebase_options_dev.dart' as firebase_option_dev;
-import 'package:flutter_template/generated/firebase_options/firebase_options_staging.dart' as firebase_options_staging;
 import 'package:flutter_template/generated/firebase_options/firebase_options_prod.dart' as firebase_options_prod;
+import 'package:flutter_template/generated/firebase_options/firebase_options_staging.dart' as firebase_options_staging;
 
 enum Flavor {
   DEV,

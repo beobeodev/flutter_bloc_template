@@ -92,7 +92,7 @@ class FocusedMenuDetails extends StatelessWidget {
                           color: Colors.black38,
                           blurRadius: 10,
                           spreadRadius: 1,
-                        )
+                        ),
                       ],
                     ),
                 child: ClipRRect(
@@ -122,7 +122,7 @@ class FocusedMenuDetails extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 item.title,
-                                if (item.trailing != null) ...[item.trailing!]
+                                if (item.trailing != null) ...[item.trailing!],
                               ],
                             ),
                           ),

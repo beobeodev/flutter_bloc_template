@@ -3,14 +3,14 @@ import 'package:flutter_template/common/helpers/ads/ads_helper.dart';
 import 'package:flutter_template/common/helpers/ads/ads_ids_helper.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class InterstitialAdsHelper extends AdsHelper {
-  static final InterstitialAdsHelper _instance = InterstitialAdsHelper._(maxNumOfLoadAttempts: 3);
+class RewardedAdsHelper extends AdsHelper {
+  static final RewardedAdsHelper _instance = RewardedAdsHelper._(maxNumOfLoadAttempts: 3);
 
-  factory InterstitialAdsHelper() {
+  factory RewardedAdsHelper() {
     return _instance;
   }
 
-  InterstitialAdsHelper._({required super.maxNumOfLoadAttempts});
+  RewardedAdsHelper._({required super.maxNumOfLoadAttempts});
 
   @override
   Future<void> preloadAds({
@@ -19,10 +19,10 @@ class InterstitialAdsHelper extends AdsHelper {
     void Function()? onAdLoaded,
     void Function()? onAdFailedToLoad,
   }) {
-    return InterstitialAd.load(
-      adUnitId: id ?? AdsIdsHelper.getInterstitialAdsId(context),
+    return RewardedAd.load(
+      adUnitId: id ?? AdsIdsHelper.getRewardedAdsId(context),
       request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
+      rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {
           super.setAd(ad: ad, onAdLoaded: onAdLoaded);
         },

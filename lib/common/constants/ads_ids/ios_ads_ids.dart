@@ -7,4 +7,13 @@ abstract final class IosAdsIds {
 
   // Interstitial ads
   static const String INTERSTITIAL_HOME = 'ca-app-pub-1062132590367814/8516586555';
+
+  // Open app ads
+  static const String OPEN_APP_HOME = 'ca-app-pub-1062132590367814/2377525943';
+
+  // Rewarded ads
+  static const String REWARDED_HOME = 'ca-app-pub-1062132590367814/9559626361';
+
+  // Rewarded interstitial ads
+  static const String REWARDED_INTERSTITIAL_HOME = 'ca-app-pub-1062132590367814/8616465381';
 }

@@ -7,4 +7,13 @@ abstract final class AndroidAdsIds {
 
   // Interstitial ads
   static const String INTERSTITIAL_HOME = 'ca-app-pub-1062132590367814/7685090305';
+
+  // Open app ads
+  static const String OPEN_APP_HOME = 'ca-app-pub-1062132590367814/9953543887';
+
+  // Rewarded ads
+  static const String REWARDED_HOME = 'ca-app-pub-1062132590367814/3377361396';
+
+  // Rewarded interstitial ads
+  static const String REWARDED_INTERSTITIAL_HOME = 'ca-app-pub-1062132590367814/5596330622';
 }

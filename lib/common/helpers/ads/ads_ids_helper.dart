@@ -12,15 +12,11 @@ abstract final class AdsIdsHelper {
   static String getBannerAdsId(BuildContext context) {
     if (Platform.isAndroid) {
       return switch (AppFlavor.appFlavor) {
-        Flavor.DEV => AndroidTestAdsIds.BANNER,
-        Flavor.STAGING => AndroidTestAdsIds.BANNER,
         Flavor.PROD => _getAndroidProductionBannerAdsId(context),
         _ => AndroidTestAdsIds.BANNER,
       };
     } else if (Platform.isIOS) {
       return switch (AppFlavor.appFlavor) {
-        Flavor.DEV => IosTestAdsIds.BANNER,
-        Flavor.STAGING => IosTestAdsIds.BANNER,
         Flavor.PROD => _getIosProductionBannerAdsId(context),
         _ => IosTestAdsIds.BANNER,
       };
@@ -48,15 +44,11 @@ abstract final class AdsIdsHelper {
   static String getNativeAdsId(BuildContext context) {
     if (Platform.isAndroid) {
       return switch (AppFlavor.appFlavor) {
-        Flavor.DEV => AndroidTestAdsIds.NATIVE,
-        Flavor.STAGING => AndroidTestAdsIds.NATIVE,
         Flavor.PROD => _getAndroidProductionNativeAdsId(context),
         _ => AndroidTestAdsIds.NATIVE,
       };
     } else if (Platform.isIOS) {
       return switch (AppFlavor.appFlavor) {
-        Flavor.DEV => IosTestAdsIds.NATIVE,
-        Flavor.STAGING => IosTestAdsIds.NATIVE,
         Flavor.PROD => _getIosProductionNativeAdsId(context),
         _ => IosTestAdsIds.NATIVE,
       };
@@ -84,15 +76,11 @@ abstract final class AdsIdsHelper {
   static String getInterstitialAdsId(BuildContext context) {
     if (Platform.isAndroid) {
       return switch (AppFlavor.appFlavor) {
-        Flavor.DEV => AndroidTestAdsIds.INTERSTITIAL,
-        Flavor.STAGING => AndroidTestAdsIds.INTERSTITIAL,
         Flavor.PROD => _getAndroidProductionInterstitialAdsId(context),
         _ => AndroidTestAdsIds.INTERSTITIAL,
       };
     } else if (Platform.isIOS) {
       return switch (AppFlavor.appFlavor) {
-        Flavor.DEV => IosTestAdsIds.INTERSTITIAL,
-        Flavor.STAGING => IosTestAdsIds.INTERSTITIAL,
         Flavor.PROD => _getIosProductionInterstitialAdsId(context),
         _ => IosTestAdsIds.INTERSTITIAL,
       };
@@ -114,6 +102,102 @@ abstract final class AdsIdsHelper {
     return switch (ModalRoute.of(context)?.settings.name) {
       AppRouter.root => IosAdsIds.INTERSTITIAL_HOME,
       _ => IosAdsIds.INTERSTITIAL_HOME,
+    };
+  }
+
+  static String getAppOpenAdsId(BuildContext context) {
+    if (Platform.isAndroid) {
+      return switch (AppFlavor.appFlavor) {
+        Flavor.PROD => _getAndroidProductionOpenAppAdsId(context),
+        _ => AndroidTestAdsIds.OPEN_APP,
+      };
+    } else if (Platform.isIOS) {
+      return switch (AppFlavor.appFlavor) {
+        Flavor.PROD => _getIosProductionOpenAppAdsId(context),
+        _ => IosTestAdsIds.OPEN_APP,
+      };
+    } else {
+      throw UnsupportedError('Unsupported platform');
+    }
+  }
+
+  // Add your android open app ads ids here for each route
+  static String _getAndroidProductionOpenAppAdsId(BuildContext context) {
+    return switch (ModalRoute.of(context)?.settings.name) {
+      AppRouter.root => AndroidAdsIds.OPEN_APP_HOME,
+      _ => AndroidAdsIds.OPEN_APP_HOME,
+    };
+  }
+
+  // Add your ios open app ads ids here for each route
+  static String _getIosProductionOpenAppAdsId(BuildContext context) {
+    return switch (ModalRoute.of(context)?.settings.name) {
+      AppRouter.root => IosAdsIds.OPEN_APP_HOME,
+      _ => IosAdsIds.OPEN_APP_HOME,
+    };
+  }
+
+  static String getRewardedAdsId(BuildContext context) {
+    if (Platform.isAndroid) {
+      return switch (AppFlavor.appFlavor) {
+        Flavor.PROD => _getAndroidProductionRewardedAdsId(context),
+        _ => AndroidTestAdsIds.REWARDED,
+      };
+    } else if (Platform.isIOS) {
+      return switch (AppFlavor.appFlavor) {
+        Flavor.PROD => _getIosProductionRewardedAdsId(context),
+        _ => IosTestAdsIds.REWARDED,
+      };
+    } else {
+      throw UnsupportedError('Unsupported platform');
+    }
+  }
+
+  // Add your android rewarded ads ids here for each route
+  static String _getAndroidProductionRewardedAdsId(BuildContext context) {
+    return switch (ModalRoute.of(context)?.settings.name) {
+      AppRouter.root => AndroidAdsIds.REWARDED_HOME,
+      _ => AndroidAdsIds.REWARDED_HOME,
+    };
+  }
+
+  // Add your ios rewarded ads ids here for each route
+  static String _getIosProductionRewardedAdsId(BuildContext context) {
+    return switch (ModalRoute.of(context)?.settings.name) {
+      AppRouter.root => IosAdsIds.REWARDED_HOME,
+      _ => IosAdsIds.REWARDED_HOME,
+    };
+  }
+
+  static String getRewardedInterstitialAdsId(BuildContext context) {
+    if (Platform.isAndroid) {
+      return switch (AppFlavor.appFlavor) {
+        Flavor.PROD => _getAndroidProductionRewardedInterstitialAdsId(context),
+        _ => AndroidTestAdsIds.REWARDED_INTERSTITIAL,
+      };
+    } else if (Platform.isIOS) {
+      return switch (AppFlavor.appFlavor) {
+        Flavor.PROD => _getIosProductionRewardedInterstitialAdsId(context),
+        _ => IosTestAdsIds.REWARDED_INTERSTITIAL,
+      };
+    } else {
+      throw UnsupportedError('Unsupported platform');
+    }
+  }
+
+  // Add your android rewarded ads ids here for each route
+  static String _getAndroidProductionRewardedInterstitialAdsId(BuildContext context) {
+    return switch (ModalRoute.of(context)?.settings.name) {
+      AppRouter.root => AndroidAdsIds.REWARDED_INTERSTITIAL_HOME,
+      _ => AndroidAdsIds.REWARDED_INTERSTITIAL_HOME,
+    };
+  }
+
+  // Add your ios rewarded ads ids here for each route
+  static String _getIosProductionRewardedInterstitialAdsId(BuildContext context) {
+    return switch (ModalRoute.of(context)?.settings.name) {
+      AppRouter.root => IosAdsIds.REWARDED_INTERSTITIAL_HOME,
+      _ => IosAdsIds.REWARDED_INTERSTITIAL_HOME,
     };
   }
 }

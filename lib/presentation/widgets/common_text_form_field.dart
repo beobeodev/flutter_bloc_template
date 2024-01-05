@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/common/extensions/context_extension.dart';
 import 'package:flutter_template/common/theme/color_styles.dart';
-import 'package:flutter_template/common/theme/text_styles.dart';
 
 class CommonTextFormField extends StatelessWidget {
   const CommonTextFormField({
@@ -31,7 +31,7 @@ class CommonTextFormField extends StatelessWidget {
     this.onFieldSubmitted,
     this.onTapPrefixIcon,
     this.onTapSuffixIcon,
-    this.labelStyle = TextStyles.s14MediumText,
+    this.labelStyle,
     this.focusNode,
   }) : super(key: key);
 
@@ -82,7 +82,7 @@ class CommonTextFormField extends StatelessWidget {
         if (labelText != null)
           Text(
             labelText!,
-            style: labelStyle,
+            style: labelStyle ?? context.labelLarge.copyWith(fontWeight: FontWeight.w500),
           ),
         if (labelText != null)
           const SizedBox(
@@ -101,12 +101,11 @@ class CommonTextFormField extends StatelessWidget {
           enabled: enabled,
           keyboardType: keyboardType,
           initialValue: initialValue,
-          style:
-              TextStyles.s14RegularText.copyWith(color: ColorStyles.zodiacBlue),
+          style: context.labelLarge,
           textAlign: isCenterText ? TextAlign.center : TextAlign.start,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: TextStyles.s14RegularText.copyWith(color: hintColor),
+            hintStyle: context.labelLarge.copyWith(color: hintColor),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(borderRadius),
               borderSide: const BorderSide(
@@ -162,12 +161,9 @@ class CommonTextFormField extends StatelessWidget {
                   )
                 : null,
             helperText: extendField ? '' : null,
-            helperStyle: extendField
-                ? TextStyles.regularText.copyWith(fontSize: 13)
-                : null,
+            helperStyle: extendField ? context.bodySmall : null,
             errorText: errorText == '' || errorText == null ? null : errorText,
-            errorStyle: TextStyles.regularText
-                .copyWith(color: Colors.red, fontSize: 13, height: 0),
+            errorStyle: context.bodySmall.copyWith(color: Colors.red, height: 0),
           ),
         ),
       ],

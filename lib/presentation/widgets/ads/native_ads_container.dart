@@ -2,9 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_template/common/enums/load_ads_status.dart';
+import 'package:flutter_template/common/extensions/context_extension.dart';
 import 'package:flutter_template/common/helpers/ads/ads_ids_helper.dart';
 import 'package:flutter_template/common/theme/color_styles.dart';
-import 'package:flutter_template/common/theme/text_styles.dart';
 import 'package:flutter_template/generated/locale_keys.g.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -108,7 +108,7 @@ class _NativeAdsContainerState extends State<NativeAdsContainer>
       LoadAdsStatus.loading => _buildContainer(
           Text(
             LocaleKeys.loading_ads.tr(),
-            style: widget.textStyle ?? TextStyles.s14MediumText,
+            style: widget.textStyle ?? context.labelLarge.copyWith(fontWeight: FontWeight.w500),
           ),
         ),
       LoadAdsStatus.success => _buildContainer(AdWidget(ad: nativeAd!)),

@@ -4,7 +4,6 @@ import 'package:flutter_template/common/enums/load_ads_status.dart';
 import 'package:flutter_template/common/extensions/context_extension.dart';
 import 'package:flutter_template/common/helpers/ads/ads_ids_helper.dart';
 import 'package:flutter_template/common/theme/color_styles.dart';
-import 'package:flutter_template/common/theme/text_styles.dart';
 import 'package:flutter_template/generated/locale_keys.g.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -66,7 +65,7 @@ class _BannerAdContainerState extends State<BannerAdContainer> with AutomaticKee
       alignment: Alignment.center,
       child: Text(
         LocaleKeys.loading_ads.tr(),
-        style: TextStyles.s14MediumText.copyWith(color: Colors.white),
+        style: context.labelLarge.copyWith(color: Colors.white, fontWeight: FontWeight.w500),
       ),
     );
   }

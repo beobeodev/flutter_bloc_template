@@ -46,4 +46,12 @@ abstract class ColorStyles {
 
   // Ads
   static const Color adsBackground = Color(0xFF2F2F2F);
+
+  // Text color
+  static const Color lightTextColor = Color(0xFF000118);
+  static final Color darkTextColor = Colors.white.withOpacity(0.87);
+
+  // Icon color
+  static const Color lightIconColor = Color(0xFF000118);
+  static const Color darkIconColor = Colors.white;
 }

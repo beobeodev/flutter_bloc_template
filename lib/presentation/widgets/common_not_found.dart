@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/extensions/context_extension.dart';
-import 'package:flutter_template/common/theme/text_styles.dart';
 import 'package:flutter_template/generated/assets.gen.dart';
 
 class CommonNotFound extends StatelessWidget {
@@ -17,7 +16,7 @@ class CommonNotFound extends StatelessWidget {
         ),
         Text(
           text,
-          style: TextStyles.mediumText.copyWith(fontSize: 15),
+          style: context.bodyLarge.copyWith(fontWeight: FontWeight.w500),
           textAlign: TextAlign.center,
         ),
       ],

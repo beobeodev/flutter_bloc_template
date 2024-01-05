@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/common/theme/text_styles.dart';
+import 'package:flutter_template/common/extensions/context_extension.dart';
 import 'package:flutter_template/generated/assets.gen.dart';
 import 'package:flutter_template/presentation/auth/bloc/auth/auth_bloc.dart';
 import 'package:flutter_template/presentation/splash/bloc/splash_bloc.dart';
@@ -34,9 +34,9 @@ class _SplashView extends StatelessWidget {
               child: Assets.icons.launcher.appIcon.image(),
             ),
             const Spacer(),
-            const Text(
+            Text(
               'Powered by GDSC-DUT',
-              style: TextStyles.s14RegularText,
+              style: context.labelLarge,
             ),
           ],
         ),

@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/common/extensions/context_extension.dart';
 import 'package:flutter_template/common/theme/app_size.dart';
 import 'package:flutter_template/common/theme/color_styles.dart';
-import 'package:flutter_template/common/theme/text_styles.dart';
 import 'package:flutter_template/generated/assets.gen.dart';
 import 'package:flutter_template/generated/locale_keys.g.dart';
 
@@ -39,7 +39,7 @@ class LoadingAds extends StatelessWidget {
           AppSize.h20,
           Text(
             LocaleKeys.loading_ads.tr(),
-            style: TextStyles.s17MediumText,
+            style: context.bodyLarge.copyWith(fontWeight: FontWeight.w500),
           ),
         ],
       ),

@@ -10,6 +10,12 @@ abstract class AppSize {
   static const double titleSpacing = 20;
 
   // Horizontal spacing
+  static final SizedBox w5 = SizedBox(width: 5.w);
+  static final SizedBox w10 = SizedBox(width: 10.w);
+  static final SizedBox w15 = SizedBox(width: 15.w);
+  static final SizedBox w20 = SizedBox(width: 20.w);
+  static final SizedBox w25 = SizedBox(width: 25.w);
+  static final SizedBox w30 = SizedBox(width: 30.w);
 
   // Vertical spacing
   static final SizedBox h5 = SizedBox(height: 5.h);

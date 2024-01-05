@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/common/extensions/context_extension.dart';
 import 'package:flutter_template/common/theme/color_styles.dart';
-import 'package:flutter_template/common/theme/text_styles.dart';
 import 'package:flutter_template/presentation/widgets/loading_dot.dart';
 
 class CommonRoundedButton extends StatelessWidget {
-  CommonRoundedButton({
+  const CommonRoundedButton({
     Key? key,
     required this.onPressed,
     this.width,
@@ -15,15 +15,14 @@ class CommonRoundedButton extends StatelessWidget {
     this.disableBackgroundColor = ColorStyles.gray300,
     this.shadowColor,
     required this.content,
-    TextStyle? textStyle,
+    this.textStyle,
     this.isDisable = false,
     this.isLoading = false,
     this.prefixIcon,
     this.suffixIcon,
     this.child,
     this.borderSide,
-  })  : textStyle = textStyle ?? TextStyles.s14BoldText.copyWith(color: Colors.white),
-        super(key: key);
+  }) : super(key: key);
 
   final VoidCallback onPressed;
 
@@ -38,7 +37,7 @@ class CommonRoundedButton extends StatelessWidget {
 
   final String content;
 
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
 
   final bool isLoading;
   final bool isDisable;
@@ -111,7 +110,7 @@ class CommonRoundedButton extends StatelessWidget {
                           ),
                         Text(
                           content,
-                          style: textStyle,
+                          style: context.labelLarge.copyWith(fontWeight: FontWeight.w700),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

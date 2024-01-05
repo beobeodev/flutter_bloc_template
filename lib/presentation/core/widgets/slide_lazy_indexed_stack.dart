@@ -18,8 +18,7 @@ class SlideIndexedStack extends StatefulWidget {
   State<SlideIndexedStack> createState() => _SlideIndexedStackState();
 }
 
-class _SlideIndexedStackState extends State<SlideIndexedStack>
-    with SingleTickerProviderStateMixin {
+class _SlideIndexedStackState extends State<SlideIndexedStack> with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
 
   late final Animation<Offset> _slideRTL;
@@ -28,20 +27,17 @@ class _SlideIndexedStackState extends State<SlideIndexedStack>
   bool _isRTL = true;
 
   Animation<Offset> _getAnimationIn() {
-    return Tween(begin: Offset(widget.slideOffset, 0), end: Offset.zero)
-        .animate(_animationController);
+    return Tween(begin: Offset(widget.slideOffset, 0), end: Offset.zero).animate(_animationController);
   }
 
   Animation<Offset> _getAnimationOut() {
-    return Tween(begin: Offset(-widget.slideOffset, 0), end: Offset.zero)
-        .animate(_animationController);
+    return Tween(begin: Offset(-widget.slideOffset, 0), end: Offset.zero).animate(_animationController);
   }
 
   @override
   void initState() {
     super.initState();
-    _animationController =
-        AnimationController(vsync: this, duration: widget.duration);
+    _animationController = AnimationController(vsync: this, duration: widget.duration);
     _slideRTL = _getAnimationIn();
     _slideLTR = _getAnimationOut();
     _animationController.forward();

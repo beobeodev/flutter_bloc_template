@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/common/theme/text_styles.dart';
+import 'package:flutter_template/common/extensions/context_extension.dart';
 
 class SheetHeader extends StatelessWidget {
   final String title;
@@ -15,7 +15,7 @@ class SheetHeader extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             title,
-            style: TextStyles.boldText.copyWith(fontSize: 20),
+            style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
           ),
         ),
         const Divider(

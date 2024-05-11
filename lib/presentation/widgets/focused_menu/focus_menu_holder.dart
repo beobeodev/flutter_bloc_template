@@ -27,9 +27,9 @@ class FocusedMenuHolderController {
 
 class FocusedMenuHolder extends StatefulWidget {
   const FocusedMenuHolder({
-    Key? key,
     required this.child,
     required this.menuItems,
+    super.key,
     this.onPressed,
     this.duration,
     this.menuBoxDecoration,
@@ -45,7 +45,7 @@ class FocusedMenuHolder extends StatefulWidget {
     this.onOpened,
     this.onClosed,
     this.enabled = true,
-  }) : super(key: key);
+  });
   final Widget child;
   final double? menuItemExtent;
   final double? menuWidth;
@@ -84,9 +84,9 @@ class _FocusedMenuHolderState extends State<FocusedMenuHolder> {
   Size? childSize;
 
   void _getOffset() {
-    RenderBox renderBox = containerKey.currentContext!.findRenderObject() as RenderBox;
-    Size size = renderBox.size;
-    Offset offset = renderBox.localToGlobal(Offset.zero);
+    final renderBox = containerKey.currentContext!.findRenderObject()! as RenderBox;
+    final size = renderBox.size;
+    final offset = renderBox.localToGlobal(Offset.zero);
     setState(() {
       childOffset = Offset(offset.dx, offset.dy);
       childSize = size;
@@ -118,10 +118,10 @@ class _FocusedMenuHolderState extends State<FocusedMenuHolder> {
 
     await Navigator.push(
       context,
-      PageRouteBuilder(
+      PageRouteBuilder<dynamic>(
         transitionDuration: widget.duration ?? const Duration(milliseconds: 100),
         pageBuilder: (context, animation, secondaryAnimation) {
-          animation = Tween(begin: 0.0, end: 1.0).animate(
+          animation = Tween<double>(begin: 0, end: 1).animate(
             CurvedAnimation(parent: animation, curve: Curves.linear),
           );
 

@@ -9,7 +9,6 @@ import 'package:flutter_template/common/helpers/firebase_messaging_service.dart'
 import 'package:flutter_template/common/helpers/local_notification_service.dart';
 import 'package:flutter_template/di/di.dart';
 import 'package:flutter_template/flavors.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 typedef BootstrapBuilder = FutureOr<Widget> Function();
@@ -30,14 +29,13 @@ Future<void> initializeApp() async {
 
   await Future.wait([
     EasyLocalization.ensureInitialized(),
-    MobileAds.instance.initialize(),
     configureDependencies(),
+    //  AdsConfig.instance.init(); // Uncomment this line to enable ads
     Firebase.initializeApp(options: AppFlavor.firebaseOptions),
   ]);
   EasyLocalization.logger.enableBuildModes = [];
 
   await LocalNotificationService.init();
-
   await FirebaseMessagingService.init();
 
   Bloc.observer = AppBlocObserver();

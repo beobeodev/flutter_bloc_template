@@ -52,7 +52,9 @@ dependencies:
   firebase_messaging: ^14.7.9
   flutter_local_notifications: ^16.3.0
   dropdown_button2: ^2.3.9
-  google_mobile_ads: ^4.0.0
+  # Google ad-mob
+  ads_service:
+    path: packages/ads_service
 
 dev_dependencies:
   flutter_test:
@@ -63,12 +65,13 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
   injectable_generator: ^2.1.5
   json_serializable: ^6.6.2
   build_runner: ^2.3.3
   flutter_flavorizr: ^2.1.6
   flutter_gen_runner: ^5.3.1
+  very_good_analysis: ^5.1.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

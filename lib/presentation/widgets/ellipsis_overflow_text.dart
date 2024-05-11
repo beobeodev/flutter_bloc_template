@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class EllipsisOverflowText extends StatelessWidget {
   const EllipsisOverflowText(
     this.data, {
-    Key? key,
+    super.key,
     this.textKey,
     this.locale,
     this.maxLines,
@@ -28,8 +28,7 @@ class EllipsisOverflowText extends StatelessWidget {
         assert(
           key == null || key != textKey,
           'Key and textKey must not be equal.',
-        ),
-        super(key: key);
+        );
 
   final Key? textKey;
   final String data;
@@ -67,7 +66,7 @@ class EllipsisOverflowText extends StatelessWidget {
     return maxLines;
   }
 
-  List _loadData({
+  (int?, String) _loadData({
     required BoxConstraints constraints,
     required TextStyle style,
     required TextScaler textScaler,
@@ -84,9 +83,9 @@ class EllipsisOverflowText extends StatelessWidget {
 
     textPainter.layout(maxWidth: constraints.maxWidth);
 
-    int? finalMaxLines = initMaxLines ?? _calculateMaxLines(constraints, textPainter);
+    final finalMaxLines = initMaxLines ?? _calculateMaxLines(constraints, textPainter);
 
-    return [finalMaxLines, data];
+    return (finalMaxLines, data);
   }
 
   @override
@@ -102,7 +101,7 @@ class EllipsisOverflowText extends StatelessWidget {
       builder: (context, constraints) {
         final defaultTextStyle = DefaultTextStyle.of(context);
 
-        TextStyle textStyle = style ?? defaultTextStyle.style;
+        var textStyle = style ?? defaultTextStyle.style;
 
         if (textStyle.fontSize == null) {
           textStyle = textStyle.copyWith(
@@ -112,7 +111,7 @@ class EllipsisOverflowText extends StatelessWidget {
 
         final defaultTextScaler = textScaler ?? MediaQuery.of(context).textScaler;
 
-        int? maxLinesFinal = maxLines ?? defaultTextStyle.maxLines;
+        final maxLinesFinal = maxLines ?? defaultTextStyle.maxLines;
 
         final r = _loadData(
           constraints: constraints,
@@ -121,11 +120,8 @@ class EllipsisOverflowText extends StatelessWidget {
           initMaxLines: maxLinesFinal,
         );
 
-        String newString = r[1];
-        maxLinesFinal = r[0];
-
         return Text(
-          newString,
+          r.$2,
           key: textKey,
           style: textStyle,
           overflow: TextOverflow.ellipsis,
@@ -139,7 +135,7 @@ class EllipsisOverflowText extends StatelessWidget {
           selectionColor: selectionColor,
           semanticsLabel: semanticsLabel,
           strutStyle: strutStyle,
-          maxLines: maxLinesFinal,
+          maxLines: r.$1,
         );
       },
     );

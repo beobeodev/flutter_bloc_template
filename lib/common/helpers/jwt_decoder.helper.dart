@@ -19,7 +19,7 @@ class JwtDecoderHelper {
       // Decode payload, the result is a String
       final payloadString = utf8.decode(base64.decode(normalizedPayload));
       // Parse the String to a Map<String, dynamic>
-      final decodedPayload = jsonDecode(payloadString);
+      final decodedPayload = jsonDecode(payloadString) as Map<String, dynamic>;
 
       // Return the decoded payload
       return decodedPayload;

@@ -6,6 +6,7 @@ import 'package:flutter_template/presentation/widgets/common_back_button.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CommonAppBar({
+    required this.title,
     super.key,
     this.isCenterTitle = true,
     this.automaticallyImplyLeading = true,
@@ -15,7 +16,6 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.titleSpacing = AppSize.titleSpacing,
     this.elevation = 0,
     this.bottomSize = 45,
-    required this.title,
     this.bottom,
     this.actions = const [],
     this.onLeadingAction,
@@ -38,7 +38,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? bottom;
   final List<Widget> actions;
 
-  final Function()? onLeadingAction;
+  final VoidCallback? onLeadingAction;
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +50,9 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       titleSpacing: titleSpacing,
       automaticallyImplyLeading: false,
       title: title is Widget
-          ? title
+          ? title as Widget
           : Text(
-              title,
+              title as String,
               style: context.bodyLarge.copyWith(color: titleColor),
             ),
       bottom: bottom != null

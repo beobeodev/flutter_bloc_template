@@ -9,12 +9,12 @@ import 'package:injectable/injectable.dart';
 
 class AppInterceptor extends QueuedInterceptor {
   AppInterceptor({
-    @Named(HiveKeys.authBox) required Box authBox,
+    @Named(HiveKeys.authBox) required Box<dynamic> authBox,
     required Dio dio,
   })  : _authBox = authBox,
         _dio = dio;
 
-  final Box _authBox;
+  final Box<dynamic> _authBox;
   final Dio _dio;
 
   @override
@@ -24,9 +24,9 @@ class AppInterceptor extends QueuedInterceptor {
   ) async {
     log('REQUEST[${options.method}] => PATH: ${options.path}');
 
-    _checkTokenExpired();
+    await _checkTokenExpired();
 
-    final String? accessToken = _authBox.get(HiveKeys.accessToken);
+    final accessToken = _authBox.get(HiveKeys.accessToken) as String?;
 
     if (accessToken != null) {
       options.headers.addAll({
@@ -38,7 +38,7 @@ class AppInterceptor extends QueuedInterceptor {
   }
 
   @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
+  void onResponse(Response<dynamic> response, ResponseInterceptorHandler handler) {
     log(
       'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}',
       name: 'Intercepter: onResponse',
@@ -64,7 +64,7 @@ class AppInterceptor extends QueuedInterceptor {
   }
 
   Future<void> _checkTokenExpired() async {
-    final String? expiredTime = _authBox.get(HiveKeys.expiresIn);
+    final expiredTime = _authBox.get(HiveKeys.expiresIn) as String?;
 
     if (expiredTime != null && DateTime.parse(expiredTime).isBefore(DateTime.now().add(const Duration(seconds: 3)))) {
       await _refreshToken();
@@ -72,7 +72,7 @@ class AppInterceptor extends QueuedInterceptor {
   }
 
   Future<void> _refreshToken() async {
-    final String? refreshToken = _authBox.get(HiveKeys.refreshToken);
+    final refreshToken = _authBox.get(HiveKeys.refreshToken) as String?;
 
     if (refreshToken == null || refreshToken.isEmpty) {
       // TODO: navigate to login screen
@@ -83,9 +83,9 @@ class AppInterceptor extends QueuedInterceptor {
     log('--[REFRESH TOKEN]--: $refreshToken');
 
     try {
-      final Response response = await _dio.get('');
+      final response = await _dio.get('');
 
-      final RefreshTokenDTO refreshTokenDTO = RefreshTokenDTO.fromJson(response.data);
+      final refreshTokenDTO = RefreshTokenDTO.fromJson(response.data as Map<String, dynamic>);
 
       await _authBox.putAll(refreshTokenDTO.toLocalJson());
     } catch (err) {

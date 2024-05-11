@@ -43,7 +43,7 @@ abstract final class AppRouter {
   //   initialLocation: login,
   // );
 
-  static Route? onGenerateRoute(RouteSettings settings) {
+  static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splash:
         return MaterialPageRoute(

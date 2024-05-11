@@ -1,4 +1,4 @@
-include: package:flutter_lints/flutter.yaml
+include: package:very_good_analysis/analysis_options.5.1.0.yaml
 
 analyzer:
   exclude:
@@ -6,9 +6,12 @@ analyzer:
     - '**.g.dart'
     - '**.gen.dart'
     - .bricks/
+  strong-mode:
+    implicit-dynamic: true
 
 linter:
   rules:
+    public_member_api_docs: false
     # PREFER using lowerCamelCase for constant names.
     constant_identifier_names: false
     # DO use single quotes where they wouldn't require additional escapes.
@@ -27,3 +30,5 @@ linter:
     # PREFER using const for instantiating constant constructors.
     prefer_const_constructors: true
     unnecessary_null_checks: true
+    sort_constructors_first: false
+    lines_longer_than_80_chars: false

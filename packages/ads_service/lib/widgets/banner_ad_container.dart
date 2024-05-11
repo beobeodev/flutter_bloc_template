@@ -1,10 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:ads_service/helpers/ads_ids_helper.dart';
+import 'package:ads_service/load_ads_status.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/common/enums/load_ads_status.dart';
-import 'package:flutter_template/common/extensions/context_extension.dart';
-import 'package:flutter_template/common/helpers/ads/ads_ids_helper.dart';
-import 'package:flutter_template/common/theme/color_styles.dart';
-import 'package:flutter_template/generated/locale_keys.g.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class BannerAdContainer extends StatefulWidget {
@@ -12,13 +9,17 @@ class BannerAdContainer extends StatefulWidget {
   final AdSize adSize;
   final void Function()? onAdClicked;
   final Color backgroundColor;
+  final String loadingTitle;
+  final TextStyle loadingStyle;
 
   const BannerAdContainer({
     super.key,
     this.adSize = AdSize.banner,
     this.adsId,
     this.onAdClicked,
-    this.backgroundColor = ColorStyles.adsBackground,
+    this.backgroundColor = Colors.white,
+    this.loadingTitle = 'Loading ads...',
+    this.loadingStyle = const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
   });
 
   @override
@@ -33,7 +34,7 @@ class _BannerAdContainerState extends State<BannerAdContainer> with AutomaticKee
   void initState() {
     _bannerAd = BannerAd(
       size: widget.adSize,
-      adUnitId: widget.adsId ?? AdsIdsHelper.getBannerAdsId(context),
+      adUnitId: (kReleaseMode && widget.adsId != null) ? widget.adsId! : AdsIdsHelper.getBannerAdsId(),
       listener: BannerAdListener(
         onAdLoaded: (ad) {
           setState(() {
@@ -58,14 +59,14 @@ class _BannerAdContainerState extends State<BannerAdContainer> with AutomaticKee
   Widget _buildLoadingCard() {
     return Container(
       height: widget.adSize.height.toDouble(),
-      width: context.width,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: widget.backgroundColor,
       ),
       alignment: Alignment.center,
       child: Text(
-        LocaleKeys.loading_ads.tr(),
-        style: context.labelLarge.copyWith(color: Colors.white, fontWeight: FontWeight.w500),
+        widget.loadingTitle,
+        style: widget.loadingStyle,
       ),
     );
   }
@@ -73,7 +74,7 @@ class _BannerAdContainerState extends State<BannerAdContainer> with AutomaticKee
   Widget _buildAds() {
     return Container(
       height: widget.adSize.height.toDouble(),
-      width: context.width,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: widget.backgroundColor,
       ),

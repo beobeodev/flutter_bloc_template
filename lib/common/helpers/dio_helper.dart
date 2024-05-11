@@ -1,120 +1,122 @@
+import 'dart:io';
 
 import 'package:dio/dio.dart';
-
-class HttpRequestResponse<T> {
-  HttpRequestResponse({
-    this.data,
-    this.headers,
-    this.request,
-    this.statusCode,
-    this.statusMessage,
-    this.extra,
-  });
-
-  T? data;
-  Headers? headers;
-  RequestOptions? request;
-  int? statusCode;
-  String? statusMessage;
-  Map<String, dynamic>? extra;
-}
 
 class DioHelper {
   DioHelper({required Dio dio}) : _dio = dio;
 
   final Dio _dio;
 
-  Future<HttpRequestResponse> get(
+  Future<FormData> _mapToFormData(Map<String, dynamic> map) async {
+    final multipartMap = Map.of(map);
+
+    for (final item in map.entries) {
+      if (item.value is File) {
+        multipartMap[item.key] = await MultipartFile.fromFile((item.value as File).path);
+      } else if (item.value is List<File>) {
+        final files = item.value as List<File>;
+        final filesList = <MultipartFile>[];
+        for (final file in files) {
+          filesList.add(await MultipartFile.fromFile(file.path));
+        }
+        multipartMap[item.key] = filesList;
+      }
+    }
+
+    final originalFormData = FormData.fromMap(multipartMap);
+    final mappedFormData = FormData();
+
+    // Add fields
+    mappedFormData.fields.addAll(originalFormData.fields.map((e) => MapEntry(e.key, e.value)));
+
+    // Add files
+    for (final element in originalFormData.files) {
+      if (element.key.contains('[') || element.key.contains(']')) {
+        final newKey = element.key.replaceAllMapped(RegExp('([+[a-zA-Z]+])'), (m) {
+          return '${m[0]}'.replaceAll('[', '.').replaceAll(']', '');
+        });
+        final newValue = element.value;
+        final newEntry = MapEntry(newKey, newValue);
+        mappedFormData.files.add(newEntry);
+      } else {
+        mappedFormData.files.add(element);
+      }
+    }
+
+    return mappedFormData;
+  }
+
+  Future<Response<dynamic>> get(
     String url, {
     Map<String, dynamic>? queryParameters,
     Options? options,
-  }) async {
-    final Response response = await _dio.get(
+  }) {
+    return _dio.get(
       url,
       queryParameters: queryParameters,
       options: options,
     );
-
-    return HttpRequestResponse(
-      data: response.data,
-      headers: response.headers,
-      request: response.requestOptions,
-      statusCode: response.statusCode,
-      statusMessage: response.statusMessage,
-      extra: response.extra,
-    );
   }
 
-  Future<HttpRequestResponse> post(
+  Future<Response<dynamic>> post(
     String url, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
     Map<String, dynamic>? formData,
-    Function(int count, int total)? onSendProgress,
+    void Function(int count, int total)? onSendProgress,
   }) async {
-    final Response response = await _dio.post(
+    if (formData != null) {
+      data = await _mapToFormData(formData);
+    }
+
+    return _dio.post(
       url,
       data: data,
       queryParameters: queryParameters,
       onSendProgress: onSendProgress,
       options: options,
     );
-
-    return HttpRequestResponse(
-      data: response.data,
-      headers: response.headers,
-      request: response.requestOptions,
-      statusCode: response.statusCode,
-      statusMessage: response.statusMessage,
-      extra: response.extra,
-    );
   }
 
-  Future<HttpRequestResponse> put(
+  Future<Response<dynamic>> put(
     String url, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
     Map<String, dynamic>? formData,
   }) async {
-    final Response response = await _dio.put(
+    if (formData != null) {
+      data = await _mapToFormData(formData);
+    }
+
+    return _dio.put(
       url,
       data: data,
       queryParameters: queryParameters,
       options: options,
     );
-
-    return HttpRequestResponse(
-      data: response.data,
-      headers: response.headers,
-      request: response.requestOptions,
-      statusCode: response.statusCode,
-      statusMessage: response.statusMessage,
-      extra: response.extra,
-    );
   }
 
-  Future<HttpRequestResponse> delete(
+  Future<Response<dynamic>> delete(
     String url, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
-  }) async {
-    final Response response = await _dio.delete(
+  }) {
+    return _dio.delete(
       url,
       data: data,
       queryParameters: queryParameters,
       options: options,
     );
+  }
 
-    return HttpRequestResponse(
-      data: response.data,
-      headers: response.headers,
-      request: response.requestOptions,
-      statusCode: response.statusCode,
-      statusMessage: response.statusMessage,
-      extra: response.extra,
-    );
+  Future<Response<dynamic>> download(
+    String url,
+    String savedPath, {
+    void Function(int, int)? onReceiveProgress,
+  }) {
+    return _dio.download(url, savedPath, onReceiveProgress: onReceiveProgress);
   }
 }

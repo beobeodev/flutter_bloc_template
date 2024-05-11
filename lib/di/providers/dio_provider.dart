@@ -8,20 +8,20 @@ import 'package:flutter_template/di/interceptors/app_interceptor.dart';
 @lazySingleton
 class DioProvider {
   DioProvider(@Named(HiveKeys.authBox) this._authBox);
-  final Box _authBox;
+  final Box<dynamic> _authBox;
 
   Dio? _dio;
   Dio getDio() => _dio ?? _createDio();
 
   Dio _createDio() {
-    final Dio interceptorDio = Dio();
-    final Dio refreshTokenDio = Dio();
+    final interceptorDio = Dio();
+    final refreshTokenDio = Dio();
 
-    final AppInterceptor appInterceptor = AppInterceptor(
+    final appInterceptor = AppInterceptor(
       authBox: _authBox,
       dio: refreshTokenDio,
     );
-    final List<Interceptor> interceptors = <Interceptor>[];
+    final interceptors = <Interceptor>[];
     interceptors.add(appInterceptor);
 
     return interceptorDio

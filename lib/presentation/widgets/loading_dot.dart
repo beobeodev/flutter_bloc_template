@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class LoadingDot extends StatefulWidget {
   const LoadingDot({
-    Key? key,
+    super.key,
     this.size = 20,
     this.dotColor = Colors.white,
-  }) : super(key: key);
+  });
 
   final double size;
   final Color dotColor;
@@ -28,7 +28,7 @@ class _LoadingDotState extends State<LoadingDot> with TickerProviderStateMixin {
     super.initState();
     const cubic = Cubic(0.2, 0.68, 0.18, 0.08);
 
-    for (int i = 0; i < 6; ++i) {
+    for (var i = 0; i < 6; ++i) {
       _animationControllers.add(
         AnimationController(
           vsync: this,
@@ -37,20 +37,20 @@ class _LoadingDotState extends State<LoadingDot> with TickerProviderStateMixin {
       );
 
       _scaleAnimations.add(
-        TweenSequence([
-          TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.1), weight: 46),
-          TweenSequenceItem(tween: Tween(begin: 0.1, end: 1.0), weight: 46),
-          TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 8),
+        TweenSequence<double>([
+          TweenSequenceItem(tween: Tween(begin: 1, end: 0.1), weight: 46),
+          TweenSequenceItem(tween: Tween(begin: 0.1, end: 1), weight: 46),
+          TweenSequenceItem(tween: Tween(begin: 1, end: 1), weight: 8),
         ]).animate(
           CurvedAnimation(parent: _animationControllers[i], curve: cubic),
         ),
       );
 
       _opacityAnimations.add(
-        TweenSequence([
-          TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.7), weight: 46),
-          TweenSequenceItem(tween: Tween(begin: 0.7, end: 1.0), weight: 46),
-          TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 8),
+        TweenSequence<double>([
+          TweenSequenceItem(tween: Tween(begin: 1, end: 0.7), weight: 46),
+          TweenSequenceItem(tween: Tween(begin: 0.7, end: 1), weight: 46),
+          TweenSequenceItem(tween: Tween(begin: 1, end: 1), weight: 8),
         ]).animate(
           CurvedAnimation(parent: _animationControllers[i], curve: cubic),
         ),
@@ -58,7 +58,7 @@ class _LoadingDotState extends State<LoadingDot> with TickerProviderStateMixin {
 
       _delayFutures.add(
         CancelableOperation.fromFuture(
-          Future.delayed(Duration(milliseconds: _beginTimes[i])).then((_) {
+          Future<dynamic>.delayed(Duration(milliseconds: _beginTimes[i])).then((_) {
             _animationControllers[i].repeat();
             return 0;
           }),
@@ -80,8 +80,8 @@ class _LoadingDotState extends State<LoadingDot> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> widgets = List<Widget>.filled(6, Container());
-    for (int i = 0; i < 6; i++) {
+    final widgets = List<Widget>.filled(6, Container());
+    for (var i = 0; i < 6; i++) {
       widgets[i] = FadeTransition(
         opacity: _opacityAnimations[i],
         child: ScaleTransition(

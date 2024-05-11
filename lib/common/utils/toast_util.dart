@@ -73,22 +73,22 @@ abstract class ToastUtil {
 }
 
 class _ToastView {
-  _ToastView._internal();
   factory _ToastView() => _instance;
+  _ToastView._internal();
   static final _ToastView _instance = _ToastView._internal();
 
   static OverlayState? overlayState;
   static OverlayEntry? _overlayEntry;
   static bool _isVisible = false;
 
-  static void createView(
+  static Future<void> createView(
     BuildContext context, {
     required String text,
-    Duration? duration,
-    ToastPosition position = ToastPosition.BOTTOM,
     required Color backgroundColor,
     required TextStyle textStyle,
     required double borderRadius,
+    Duration? duration,
+    ToastPosition position = ToastPosition.BOTTOM,
     Border? border,
     Widget? leading,
     Widget? trailing,
@@ -139,7 +139,7 @@ class _ToastView {
 
     _isVisible = true;
     overlayState!.insert(_overlayEntry!);
-    await Future.delayed(duration ?? const Duration(seconds: 2));
+    await Future<dynamic>.delayed(duration ?? const Duration(seconds: 2));
     dismiss();
   }
 
@@ -177,12 +177,12 @@ class _ToastView {
 
 class ToastCard extends StatefulWidget {
   const ToastCard({
-    Key? key,
-    this.fadeDuration = 500,
     required this.child,
     required this.duration,
     required this.position,
-  }) : super(key: key);
+    super.key,
+    this.fadeDuration = 500,
+  });
 
   final Widget child;
   final Duration duration;
@@ -204,7 +204,7 @@ class ToastStateFulState extends State<ToastCard> with SingleTickerProviderState
   }
 
   AnimationController? _animationController;
-  late Animation _fadeAnimation;
+  late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
 
   Timer? _timer;
@@ -248,7 +248,7 @@ class ToastStateFulState extends State<ToastCard> with SingleTickerProviderState
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-      opacity: _fadeAnimation as Animation<double>,
+      opacity: _fadeAnimation,
       child: SlideTransition(
         position: _slideAnimation,
         child: Center(

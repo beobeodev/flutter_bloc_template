@@ -1,18 +1,23 @@
+import 'dart:io';
+
+import 'package:ads_service/ads_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/widgets/ads/loading_ads.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 abstract class AdsHelper {
   AdWithoutView? adWithoutView;
 
+  final String? id;
   int numOfLoadAttempts;
   final int maxNumOfLoadAttempts;
 
-  AdsHelper({this.numOfLoadAttempts = 0, required this.maxNumOfLoadAttempts});
+  AdsHelper({
+    this.numOfLoadAttempts = 0,
+    this.maxNumOfLoadAttempts = 3,
+    this.id,
+  });
 
   Future<void> preloadAds({
-    required BuildContext context,
-    String? id,
     void Function()? onAdLoaded,
     void Function()? onAdFailedToLoad,
   });
@@ -24,63 +29,60 @@ abstract class AdsHelper {
     onAdLoaded?.call();
   }
 
-  void handleAdFailedToLoad({required BuildContext context, String? id, required void Function()? onAdFailedToLoad}) {
-    if (onAdFailedToLoad == null) {
-      adWithoutView = null;
+  void handleAdFailedToLoad({required void Function()? onAdFailedToLoad}) {
+    adWithoutView = null;
 
-      if (numOfLoadAttempts < maxNumOfLoadAttempts) {
-        ++numOfLoadAttempts;
-        preloadAds(context: context, id: id);
-      }
-    } else {
-      onAdFailedToLoad.call();
+    if (numOfLoadAttempts < maxNumOfLoadAttempts) {
+      ++numOfLoadAttempts;
+      preloadAds();
     }
+
+    onAdFailedToLoad?.call();
   }
 
-  void showAds({
+  Future<void> showAds({
     required BuildContext context,
     void Function()? onAdShowedFullScreenContent,
+    void Function()? onAdFailedToLoad,
     void Function()? onAdFailedToShowFullScreenContent,
     void Function()? onAdDismissedFullScreenContent,
     void Function()? onAdClicked,
     void Function(AdWithoutView, RewardItem)? onUserEarnedReward,
-  }) {
+  }) async {
     if (adWithoutView == null) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return const Dialog.fullscreen(child: LoadingAds(size: 100));
-        },
-      );
+      AdsConfig.instance.showLoading(context);
 
-      preloadAds(
-        context: context,
-        onAdLoaded: () {
+      await preloadAds(
+        onAdLoaded: () async {
           Navigator.pop(context);
 
-          showFullScreenContent(
+          await showFullScreenContent(
             onAdShowedFullScreenContent: onAdShowedFullScreenContent,
             onAdFailedToShowFullScreenContent: onAdFailedToShowFullScreenContent,
             onAdDismissedFullScreenContent: onAdDismissedFullScreenContent,
             onAdClicked: onAdClicked,
             onUserEarnedReward: onUserEarnedReward,
-          ).then((value) => preloadAds(context: context));
+          );
         },
         onAdFailedToLoad: () {
           Navigator.pop(context);
+          onAdFailedToLoad?.call();
         },
       ).catchError((_) {
         Navigator.pop(context);
+        onAdFailedToLoad?.call();
       });
-    } else {
-      showFullScreenContent(
-        onAdShowedFullScreenContent: onAdShowedFullScreenContent,
-        onAdFailedToShowFullScreenContent: onAdFailedToShowFullScreenContent,
-        onAdDismissedFullScreenContent: onAdDismissedFullScreenContent,
-        onAdClicked: onAdClicked,
-        onUserEarnedReward: onUserEarnedReward,
-      ).then((value) => preloadAds(context: context));
+
+      return;
     }
+
+    await showFullScreenContent(
+      onAdShowedFullScreenContent: onAdShowedFullScreenContent,
+      onAdFailedToShowFullScreenContent: onAdFailedToShowFullScreenContent,
+      onAdDismissedFullScreenContent: onAdDismissedFullScreenContent,
+      onAdClicked: onAdClicked,
+      onUserEarnedReward: onUserEarnedReward,
+    );
   }
 
   Future<void> showFullScreenContent({
@@ -89,7 +91,9 @@ abstract class AdsHelper {
     required void Function()? onAdDismissedFullScreenContent,
     required void Function()? onAdClicked,
     required void Function(AdWithoutView, RewardItem)? onUserEarnedReward,
-  }) {
+  }) async {
+    if (adWithoutView == null) return;
+
     if (adWithoutView is AppOpenAd) {
       final ad = adWithoutView as AppOpenAd;
 
@@ -100,7 +104,7 @@ abstract class AdsHelper {
         onAdShowedFullScreenContent: onAdShowedFullScreenContent,
       );
 
-      return ad.show();
+      await ad.show();
     } else if (adWithoutView is InterstitialAd) {
       final ad = adWithoutView as InterstitialAd;
 
@@ -111,7 +115,7 @@ abstract class AdsHelper {
         onAdShowedFullScreenContent: onAdShowedFullScreenContent,
       );
 
-      return ad.show();
+      await ad.show();
     } else if (adWithoutView is RewardedAd) {
       final ad = adWithoutView as RewardedAd;
 
@@ -122,10 +126,10 @@ abstract class AdsHelper {
         onAdShowedFullScreenContent: onAdShowedFullScreenContent,
       );
 
-      return ad.show(onUserEarnedReward: (ad, item) => onUserEarnedReward?.call(ad, item));
+      await ad.show(onUserEarnedReward: (ad, item) => onUserEarnedReward?.call(ad, item));
     }
 
-    return Future(() => {});
+    return;
   }
 
   FullScreenContentCallback<T> _getContentCallback<T extends AdWithoutView>({
@@ -135,18 +139,39 @@ abstract class AdsHelper {
     required void Function()? onAdClicked,
   }) {
     return FullScreenContentCallback<T>(
-      onAdShowedFullScreenContent: (_) => onAdShowedFullScreenContent?.call(),
+      onAdShowedFullScreenContent: (_) {
+        onAdShowedFullScreenContent?.call();
+      },
       onAdFailedToShowFullScreenContent: (ad, __) {
-        ad.dispose();
+        _disposeAd(ad);
+        if (Platform.isAndroid) {
+          _disableOpenAppAds();
+        }
 
         onAdFailedToShowFullScreenContent?.call();
       },
+      onAdWillDismissFullScreenContent: (ad) {
+        _disableOpenAppAds();
+      },
       onAdDismissedFullScreenContent: (ad) {
-        ad.dispose();
+        _disposeAd(ad);
+        if (Platform.isAndroid) {
+          _disableOpenAppAds();
+        }
 
         onAdDismissedFullScreenContent?.call();
       },
       onAdClicked: (_) => onAdClicked?.call(),
     );
+  }
+
+  void _disableOpenAppAds() {
+    AdsConfig().enableOpenAppAds = false;
+  }
+
+  void _disposeAd(Ad ad) {
+    ad.dispose();
+    adWithoutView = null;
+    preloadAds();
   }
 }

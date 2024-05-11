@@ -9,18 +9,18 @@ import 'package:injectable/injectable.dart';
 @lazySingleton
 class UserLocalDataSource {
   UserLocalDataSource({
-    @Named(HiveKeys.authBox) required Box authBox,
+    @Named(HiveKeys.authBox) required Box<dynamic> authBox,
   }) : _authBox = authBox;
 
-  final Box _authBox;
+  final Box<dynamic> _authBox;
 
   UserModel? getUserInfo() {
-    final String? rawData = _authBox.get(HiveKeys.user);
+    final rawData = _authBox.get(HiveKeys.user) as String?;
 
     if (rawData == null) {
       return null;
     } else {
-      return UserModel.fromJson(Map<String, dynamic>.from(jsonDecode(rawData)));
+      return UserModel.fromJson(Map<String, dynamic>.from(jsonDecode(rawData) as Map<String, dynamic>));
     }
   }
 

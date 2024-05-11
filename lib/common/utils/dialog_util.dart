@@ -21,7 +21,7 @@ abstract class DialogUtil {
     _isDialogOpen = true;
 
     Navigator.of(context).push(
-      CustomPopupRoute(
+      CustomPopupRoute<dynamic>(
         child: PopScope(
           canPop: false,
           child: Center(
@@ -43,8 +43,8 @@ abstract class DialogUtil {
 
   static Future<void> showCustomDialog(
     BuildContext context, {
-    bool barrierDismissible = true,
     required String title,
+    bool barrierDismissible = true,
     TextStyle? titleStyle,
     String? content,
     TextStyle? contentStyle,

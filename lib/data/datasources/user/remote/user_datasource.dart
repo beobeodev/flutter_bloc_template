@@ -12,16 +12,16 @@ class UserRemoteDataSource {
   final DioHelper _dioHelper;
 
   Future<LoginResponseDTO> loginByEmail(LoginByEmailRequestDTO params) async {
-    final HttpRequestResponse response = await _dioHelper.post(
+    final response = await _dioHelper.post(
       Endpoints.login,
       data: params.toJson(),
     );
 
     return LoginResponseDTO(
-      user: UserModel.fromJson(response.data['data']['user']),
-      refreshToken: response.data['data']['token']['refreshToken'],
-      accessToken: response.data['data']['token']['accessToken'],
-      expiresIn: response.data['data']['token']['expiresIn'],
+      user: UserModel.fromJson(response.data['data']['user'] as Map<String, dynamic>),
+      refreshToken: response.data['data']['token']['refreshToken'] as String,
+      accessToken: response.data['data']['token']['accessToken'] as String,
+      expiresIn: response.data['data']['token']['expiresIn'] as int,
     );
   }
 }

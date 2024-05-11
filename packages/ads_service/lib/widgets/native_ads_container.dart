@@ -1,11 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:ads_service/helpers/ads_ids_helper.dart';
+import 'package:ads_service/load_ads_status.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_template/common/enums/load_ads_status.dart';
-import 'package:flutter_template/common/extensions/context_extension.dart';
-import 'package:flutter_template/common/helpers/ads/ads_ids_helper.dart';
-import 'package:flutter_template/common/theme/color_styles.dart';
-import 'package:flutter_template/generated/locale_keys.g.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class NativeAdsContainer extends StatefulWidget {
@@ -14,7 +9,11 @@ class NativeAdsContainer extends StatefulWidget {
   final VoidCallback? onAdClicked;
   final double borderRadius;
   final Color backgroundColor;
-  final TextStyle? textStyle;
+  final Widget? loadingWidget;
+  final NativeTemplateTextStyle? callToActionTextStyle;
+  final NativeTemplateTextStyle? primaryTextStyle;
+  final NativeTemplateTextStyle? secondaryTextStyle;
+  final NativeTemplateTextStyle? tertiaryTextStyle;
 
   const NativeAdsContainer({
     super.key,
@@ -23,7 +22,11 @@ class NativeAdsContainer extends StatefulWidget {
     this.onAdClicked,
     this.borderRadius = 0,
     this.backgroundColor = Colors.white,
-    this.textStyle,
+    this.loadingWidget,
+    this.callToActionTextStyle,
+    this.primaryTextStyle,
+    this.secondaryTextStyle,
+    this.tertiaryTextStyle,
   });
 
   @override
@@ -39,7 +42,7 @@ class _NativeAdsContainerState extends State<NativeAdsContainer>
   void initState() {
     super.initState();
     nativeAd = NativeAd(
-      adUnitId: widget.adsId ?? AdsIdsHelper.getNativeAdsId(context),
+      adUnitId: widget.adsId ?? AdsIdsHelper.getNativeAdsId(),
       listener: NativeAdListener(
         onAdLoaded: (ad) {
           setState(() {
@@ -58,27 +61,34 @@ class _NativeAdsContainerState extends State<NativeAdsContainer>
         templateType: widget.templateType,
         cornerRadius: widget.borderRadius,
         mainBackgroundColor: widget.backgroundColor,
-        callToActionTextStyle: NativeTemplateTextStyle(
-          textColor: Colors.white,
-          backgroundColor: ColorStyles.blue300,
-          style: NativeTemplateFontStyle.bold,
-          size: 17.0.sp,
-        ),
-        primaryTextStyle: NativeTemplateTextStyle(
-          textColor: ColorStyles.blue300,
-          backgroundColor: Colors.transparent,
-          style: NativeTemplateFontStyle.bold,
-          size: 17.0.sp,
-        ),
-        secondaryTextStyle: NativeTemplateTextStyle(
-          textColor: ColorStyles.gray400,
-          backgroundColor: Colors.transparent,
-          size: 14.0.sp,
-        ),
-        tertiaryTextStyle: NativeTemplateTextStyle(
-          textColor: Colors.white,
-          size: 14.0.sp,
-        ),
+        callToActionTextStyle: widget.callToActionTextStyle ??
+            NativeTemplateTextStyle(
+              textColor: Colors.black,
+              backgroundColor: Colors.white,
+              style: NativeTemplateFontStyle.bold,
+              size: 17.0,
+            ),
+        primaryTextStyle: widget.primaryTextStyle ??
+            NativeTemplateTextStyle(
+              textColor: Colors.black,
+              backgroundColor: Colors.white,
+              style: NativeTemplateFontStyle.bold,
+              size: 17.0,
+            ),
+        secondaryTextStyle: widget.secondaryTextStyle ??
+            NativeTemplateTextStyle(
+              textColor: Colors.black,
+              backgroundColor: Colors.white,
+              style: NativeTemplateFontStyle.bold,
+              size: 17.0,
+            ),
+        tertiaryTextStyle: widget.tertiaryTextStyle ??
+            NativeTemplateTextStyle(
+              textColor: Colors.black,
+              backgroundColor: Colors.white,
+              style: NativeTemplateFontStyle.bold,
+              size: 17.0,
+            ),
       ),
     )..load();
   }
@@ -106,10 +116,8 @@ class _NativeAdsContainerState extends State<NativeAdsContainer>
 
     return switch (loadStatus) {
       LoadAdsStatus.loading => _buildContainer(
-          Text(
-            LocaleKeys.loading_ads.tr(),
-            style: widget.textStyle ?? context.labelLarge.copyWith(fontWeight: FontWeight.w500),
-          ),
+          widget.loadingWidget ??
+              const Text('Loading ads...', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
         ),
       LoadAdsStatus.success => _buildContainer(AdWidget(ad: nativeAd!)),
       LoadAdsStatus.failure => const SizedBox.shrink(),

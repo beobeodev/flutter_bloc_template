@@ -18,7 +18,6 @@ class FocusedMenuDetails extends StatelessWidget {
   final double? menuOffset;
 
   const FocusedMenuDetails({
-    Key? key,
     required this.menuItems,
     required this.child,
     required this.childOffset,
@@ -29,13 +28,14 @@ class FocusedMenuDetails extends StatelessWidget {
     required this.blurSize,
     required this.blurBackgroundColor,
     required this.menuWidth,
+    super.key,
     this.bottomOffsetHeight,
     this.menuOffset,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     final maxMenuHeight = size.height * 0.45;
     final listHeight = menuItems.length * (itemExtent ?? 50.0);
@@ -73,20 +73,20 @@ class FocusedMenuDetails extends StatelessWidget {
             left: leftOffset,
             child: TweenAnimationBuilder(
               duration: const Duration(milliseconds: 200),
-              builder: (BuildContext context, dynamic value, Widget? child) {
+              builder: (BuildContext context, int value, Widget? child) {
                 return Transform.scale(
-                  scale: value,
+                  scale: value.toDouble(),
                   child: child,
                 );
               },
-              tween: Tween(begin: 0.0, end: 1.0),
+              tween: Tween(begin: 0, end: 1),
               child: Container(
                 width: maxMenuWidth,
                 height: menuHeight,
                 decoration: menuBoxDecoration ??
                     BoxDecoration(
                       color: Colors.grey.shade200,
-                      borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                      borderRadius: const BorderRadius.all(Radius.circular(5)),
                       boxShadow: const [
                         BoxShadow(
                           color: Colors.black38,
@@ -96,14 +96,14 @@ class FocusedMenuDetails extends StatelessWidget {
                       ],
                     ),
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
                   child: ListView.builder(
                     itemCount: menuItems.length,
                     padding: EdgeInsets.zero,
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
-                      FocusedMenuItem item = menuItems[index];
-                      Widget listItem = GestureDetector(
+                      final item = menuItems[index];
+                      final Widget listItem = GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
                           item.onPressed();
@@ -115,7 +115,7 @@ class FocusedMenuDetails extends StatelessWidget {
                           height: itemExtent ?? 50.0,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                              vertical: 8.0,
+                              vertical: 8,
                               horizontal: 14,
                             ),
                             child: Row(
@@ -130,14 +130,14 @@ class FocusedMenuDetails extends StatelessWidget {
                       );
                       if (animateMenu) {
                         return TweenAnimationBuilder(
-                          builder: (context, dynamic value, child) {
+                          builder: (context, int value, child) {
                             return Transform(
                               transform: Matrix4.rotationX(1.5708 * value),
                               alignment: Alignment.bottomCenter,
                               child: child,
                             );
                           },
-                          tween: Tween(begin: 1.0, end: 0.0),
+                          tween: Tween(begin: 1, end: 0),
                           duration: Duration(milliseconds: index * 200),
                           child: listItem,
                         );

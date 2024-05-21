@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/extensions/context_extension.dart';
-import 'package:flutter_template/common/theme/color_styles.dart';
 import 'package:flutter_template/generated/locale_keys.g.dart';
 import 'package:flutter_template/presentation/widgets/common_rounded_button.dart';
 import 'package:flutter_template/presentation/widgets/custom_popup_route.dart';
@@ -78,11 +77,8 @@ abstract class DialogUtil {
                   cancelAction?.call();
                 },
                 content: cancelButtonText ?? LocaleKeys.button_cancel.tr(),
-                textStyle: context.labelLarge.copyWith(
-                  color: ColorStyles.red400,
-                  fontWeight: FontWeight.w700,
-                ),
-                borderSide: const BorderSide(color: ColorStyles.red400),
+                textStyle: context.textStyles.errorButtonLabel,
+                borderSide: BorderSide(color: context.palette.errorButtonLabel),
                 backgroundColor: Colors.transparent,
                 height: 45,
               ),
@@ -96,10 +92,7 @@ abstract class DialogUtil {
                 confirmAction?.call();
               },
               content: confirmButtonText ?? LocaleKeys.button_confirm.tr(),
-              textStyle: context.labelLarge.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
+              textStyle: context.textStyles.buttonLabel,
               height: 45,
             ),
           ],
@@ -108,6 +101,7 @@ abstract class DialogUtil {
           titlePadding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
           buttonPadding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          backgroundColor: context.palette.dialogBackground,
         );
       },
     );

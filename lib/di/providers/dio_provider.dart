@@ -1,9 +1,10 @@
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_template/common/constants/hive_keys.dart';
+import 'package:flutter_template/di/interceptors/app_interceptor.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-import 'package:flutter_template/di/interceptors/app_interceptor.dart';
 
 @lazySingleton
 class DioProvider {
@@ -21,8 +22,7 @@ class DioProvider {
       authBox: _authBox,
       dio: refreshTokenDio,
     );
-    final interceptors = <Interceptor>[];
-    interceptors.add(appInterceptor);
+    final interceptors = <Interceptor>[appInterceptor];
 
     return interceptorDio
       ..options.headers = {

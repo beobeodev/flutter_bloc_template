@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/extensions/context_extension.dart';
 import 'package:flutter_template/common/theme/app_size.dart';
-import 'package:flutter_template/common/theme/color_styles.dart';
 import 'package:flutter_template/presentation/widgets/common_back_button.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -11,7 +10,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.isCenterTitle = true,
     this.automaticallyImplyLeading = true,
     this.backgroundColor,
-    this.titleColor = ColorStyles.zodiacBlue,
+    this.titleStyle,
     this.toolbarHeight = kToolbarHeight,
     this.titleSpacing = AppSize.titleSpacing,
     this.elevation = 0,
@@ -27,7 +26,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool automaticallyImplyLeading;
 
   final Color? backgroundColor;
-  final Color titleColor;
+  final TextStyle? titleStyle;
 
   final double toolbarHeight;
   final double titleSpacing;
@@ -53,7 +52,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? title as Widget
           : Text(
               title as String,
-              style: context.bodyLarge.copyWith(color: titleColor),
+              style: titleStyle ?? context.textStyles.body1,
             ),
       bottom: bottom != null
           ? PreferredSize(

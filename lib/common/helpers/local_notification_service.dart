@@ -7,17 +7,16 @@ abstract final class LocalNotificationService {
 
   static Future<void> init() async {
     // Initialize android settings for local notifications
-    const AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const androidInitializationSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
     // Initialize ios settings for local notifications
-    const DarwinInitializationSettings darwinInitializationSettings = DarwinInitializationSettings(
+    const darwinInitializationSettings = DarwinInitializationSettings(
         // If you want to request permissions at a later point in your application on iOS, set all of the bellow to false when initialize the plugin.
         //   requestSoundPermission: false,
         // requestBadgePermission: false,
         // requestAlertPermission: false,
         );
 
-    const InitializationSettings initializationSettings = InitializationSettings(
+    const initializationSettings = InitializationSettings(
       android: androidInitializationSettings,
       iOS: darwinInitializationSettings,
     );
@@ -59,7 +58,7 @@ abstract final class LocalNotificationService {
     required String title,
     String? description,
   }) async {
-    final AndroidNotificationChannel channel = AndroidNotificationChannel(
+    final channel = AndroidNotificationChannel(
       id, // id
       title, // title
       description: description,
@@ -80,14 +79,14 @@ abstract final class LocalNotificationService {
     String? payload,
     int? id,
   }) async {
-    final AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
+    final androidNotificationDetails = AndroidNotificationDetails(
       channelId,
       channelName,
       importance: Importance.max,
       priority: Priority.high,
     );
 
-    final NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
+    final notificationDetails = NotificationDetails(android: androidNotificationDetails);
 
     await _flutterLocalNotificationsPlugin.show(
       id ?? DateTime.now().microsecond,

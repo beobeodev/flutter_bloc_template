@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/extensions/context_extension.dart';
-import 'package:flutter_template/common/theme/color_styles.dart';
 import 'package:flutter_template/presentation/widgets/loading_dot.dart';
 
 class CommonRoundedButton extends StatelessWidget {
   const CommonRoundedButton({
-    Key? key,
     required this.onPressed,
+    required this.content,
+    super.key,
     this.width,
     this.height = 48,
     this.borderRadius = 7,
     this.elevation = 0,
-    this.backgroundColor = ColorStyles.blue400,
-    this.disableBackgroundColor = ColorStyles.gray300,
+    this.backgroundColor,
+    this.disableBackgroundColor,
     this.shadowColor,
-    required this.content,
     this.textStyle,
     this.isDisable = false,
     this.isLoading = false,
@@ -22,7 +21,7 @@ class CommonRoundedButton extends StatelessWidget {
     this.suffixIcon,
     this.child,
     this.borderSide,
-  }) : super(key: key);
+  });
 
   final VoidCallback onPressed;
 
@@ -31,8 +30,8 @@ class CommonRoundedButton extends StatelessWidget {
   final double borderRadius;
   final double elevation;
 
-  final Color backgroundColor;
-  final Color disableBackgroundColor;
+  final Color? backgroundColor;
+  final Color? disableBackgroundColor;
   final Color? shadowColor;
 
   final String content;
@@ -50,6 +49,12 @@ class CommonRoundedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonColor = WidgetStatePropertyAll(
+      isDisable
+          ? (disableBackgroundColor ?? context.palette.hintTextField)
+          : (backgroundColor ?? context.palette.buttonBackground),
+    );
+
     return SizedBox(
       width: width,
       height: height,
@@ -57,18 +62,12 @@ class CommonRoundedButton extends StatelessWidget {
         data: ThemeData(
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
-              overlayColor: MaterialStateProperty.all<Color>(
-                isDisable ? disableBackgroundColor : backgroundColor,
-              ),
-              foregroundColor: MaterialStateProperty.all<Color>(
-                isDisable ? disableBackgroundColor : backgroundColor,
-              ),
-              backgroundColor: MaterialStateProperty.all<Color>(
-                isDisable ? disableBackgroundColor : backgroundColor,
-              ),
-              elevation: MaterialStateProperty.resolveWith<double>(
-                (Set<MaterialState> states) {
-                  if (states.contains(MaterialState.focused)) {
+              overlayColor: buttonColor,
+              foregroundColor: buttonColor,
+              backgroundColor: buttonColor,
+              elevation: WidgetStateProperty.resolveWith<double>(
+                (Set<WidgetState> states) {
+                  if (states.contains(WidgetState.focused)) {
                     return 0;
                   }
 
@@ -110,7 +109,7 @@ class CommonRoundedButton extends StatelessWidget {
                           ),
                         Text(
                           content,
-                          style: context.labelLarge.copyWith(fontWeight: FontWeight.w700),
+                          style: textStyle ?? context.textStyles.buttonLabel,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

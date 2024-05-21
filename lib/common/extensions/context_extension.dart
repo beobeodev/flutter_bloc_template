@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/app/bloc/app_bloc.dart';
 import 'package:flutter_template/common/theme/app_size.dart';
-import 'package:flutter_template/common/theme/app_theme.dart';
+import 'package:flutter_template/common/theme/palette.dart';
+import 'package:flutter_template/common/theme/text_styles.dart';
 
 extension ContextExtension on BuildContext {
   /// The same of [MediaQuery.of(context).size]
@@ -35,23 +34,7 @@ extension ContextExtension on BuildContext {
 
   double get bottomSpacing => paddingBottom > 0 ? paddingBottom : 10;
 
-  TextStyle get bodySmall => theme.textTheme.bodySmall!;
+  AppTextStyles get textStyles => Theme.of(this).extension<AppTextStyles>()!;
 
-  TextStyle get bodyMedium => theme.textTheme.bodyMedium!;
-
-  TextStyle get bodyLarge => theme.textTheme.bodyLarge!;
-
-  TextStyle get labelSmall => theme.textTheme.labelSmall!;
-
-  TextStyle get labelMedium => theme.textTheme.labelMedium!;
-
-  TextStyle get labelLarge => theme.textTheme.labelLarge!;
-
-  TextStyle get titleSmall => theme.textTheme.titleSmall!;
-
-  TextStyle get titleMedium => theme.textTheme.titleMedium!;
-
-  TextStyle get titleLarge => theme.textTheme.titleLarge!;
-
-  DefaultThemeConfig get themeConfig => read<AppBloc>().state.themeSheet.themeConfig;
+  Palette get palette => Theme.of(this).extension<Palette>()!;
 }

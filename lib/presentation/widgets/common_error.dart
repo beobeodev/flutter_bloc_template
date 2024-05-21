@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/extensions/context_extension.dart';
-import 'package:flutter_template/common/theme/color_styles.dart';
 import 'package:flutter_template/generated/assets.gen.dart';
 import 'package:flutter_template/generated/locale_keys.g.dart';
 import 'package:flutter_template/presentation/widgets/common_rounded_button.dart';
@@ -21,7 +20,7 @@ class CommonError extends StatelessWidget {
           ),
           Text(
             LocaleKeys.texts_error_occur.tr(),
-            style: context.bodyLarge.copyWith(color: ColorStyles.red500),
+            style: context.textStyles.errorButtonLabel,
             textAlign: TextAlign.center,
           ),
           if (onRefresh != null)

@@ -72,7 +72,7 @@ class _LoginView extends StatelessWidget {
                 children: [
                   Text(
                     LocaleKeys.auth_welcome_back.tr(),
-                    style: context.bodyLarge,
+                    style: context.textStyles.subHeading1,
                   ),
                   LoginForm(
                     formKey: _formKey,

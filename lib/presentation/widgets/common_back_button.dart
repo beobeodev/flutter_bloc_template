@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/common/theme/color_styles.dart';
+import 'package:flutter_template/common/extensions/context_extension.dart';
 import 'package:flutter_template/presentation/widgets/common_icon_button.dart';
 
 class CommonBackButton extends StatelessWidget {
@@ -14,7 +14,7 @@ class CommonBackButton extends StatelessWidget {
         Navigator.of(context).pop();
       },
       icon: Icons.chevron_left_rounded,
-      iconColor: ColorStyles.primary,
+      iconColor: context.palette.normalText,
     );
   }
 }

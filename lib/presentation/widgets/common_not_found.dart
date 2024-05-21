@@ -16,7 +16,7 @@ class CommonNotFound extends StatelessWidget {
         ),
         Text(
           text,
-          style: context.bodyLarge.copyWith(fontWeight: FontWeight.w500),
+          style: context.textStyles.body1,
           textAlign: TextAlign.center,
         ),
       ],

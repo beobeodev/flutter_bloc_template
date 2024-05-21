@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/extensions/context_extension.dart';
-import 'package:flutter_template/common/theme/color_styles.dart';
 
 class CommonTextFormField extends StatelessWidget {
   const CommonTextFormField({
@@ -16,10 +15,9 @@ class CommonTextFormField extends StatelessWidget {
     this.labelText,
     this.initialValue,
     this.borderRadius = 6,
-    this.borderColor = ColorStyles.gray100,
-    this.focusedBorderColor = ColorStyles.blue400,
-    this.fillColor = Colors.white,
-    this.hintColor = ColorStyles.gray200,
+    this.borderColor = Colors.transparent,
+    this.focusedBorderColor,
+    this.fillColor,
     this.prefixIconColor,
     this.suffixIconColor,
     this.suffixIcon,
@@ -50,10 +48,9 @@ class CommonTextFormField extends StatelessWidget {
 
   final double borderRadius;
 
-  final Color focusedBorderColor;
+  final Color? focusedBorderColor;
   final Color borderColor;
-  final Color fillColor;
-  final Color hintColor;
+  final Color? fillColor;
   final Color? prefixIconColor;
   final Color? suffixIconColor;
 
@@ -80,13 +77,12 @@ class CommonTextFormField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (labelText != null)
-          Text(
-            labelText!,
-            style: labelStyle ?? context.labelLarge.copyWith(fontWeight: FontWeight.w500),
-          ),
-        if (labelText != null)
-          const SizedBox(
-            height: 5,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 5),
+            child: Text(
+              labelText!,
+              style: labelStyle ?? context.textStyles.textFieldLabel,
+            ),
           ),
         TextFormField(
           controller: textController,
@@ -101,21 +97,21 @@ class CommonTextFormField extends StatelessWidget {
           enabled: enabled,
           keyboardType: keyboardType,
           initialValue: initialValue,
-          style: context.labelLarge,
+          style: context.textStyles.textField,
           textAlign: isCenterText ? TextAlign.center : TextAlign.start,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: context.labelLarge.copyWith(color: hintColor),
+            hintStyle: context.textStyles.hintTextField,
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(borderRadius),
-              borderSide: const BorderSide(
-                color: ColorStyles.red600,
+              borderSide: BorderSide(
+                color: context.palette.errorButtonLabel,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(borderRadius),
               borderSide: BorderSide(
-                color: focusedBorderColor,
+                color: focusedBorderColor ?? context.palette.focusedBorderColor,
               ),
             ),
             enabledBorder: OutlineInputBorder(
@@ -132,13 +128,13 @@ class CommonTextFormField extends StatelessWidget {
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(borderRadius),
-              borderSide: const BorderSide(
-                color: ColorStyles.red600,
+              borderSide: BorderSide(
+                color: context.palette.errorButtonLabel,
               ),
             ),
             // isDense: true,
             filled: true,
-            fillColor: fillColor,
+            fillColor: fillColor ?? context.palette.textFieldBackground,
             contentPadding: const EdgeInsets.symmetric(horizontal: 20),
             prefixIcon: prefixIcon != null
                 ? GestureDetector(
@@ -161,9 +157,9 @@ class CommonTextFormField extends StatelessWidget {
                   )
                 : null,
             helperText: extendField ? '' : null,
-            helperStyle: extendField ? context.bodySmall : null,
+            helperStyle: extendField ? context.textStyles.helperTexField : null,
             errorText: errorText == '' || errorText == null ? null : errorText,
-            errorStyle: context.bodySmall.copyWith(color: Colors.red, height: 0),
+            errorStyle: context.textStyles.errorTextField,
           ),
         ),
       ],

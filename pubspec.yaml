@@ -153,6 +153,8 @@ flutter:
           weight: 400
         - asset: assets/fonts/Mulish-Medium.ttf
           weight: 500
+        - asset: assets/fonts/Mulish-SemiBold.ttf
+          weight: 600
         - asset: assets/fonts/Mulish-Bold.ttf
           weight: 700
 

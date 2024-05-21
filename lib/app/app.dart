@@ -89,13 +89,11 @@ class _AppState extends State<App> {
                                   AppRouter.root,
                                   (route) => false,
                                 );
-                                break;
                               case AuthenticationStatus.unauthenticated:
                                 _navigator.pushNamedAndRemoveUntil(
                                   AppRouter.login,
                                   (route) => false,
                                 );
-                                break;
                             }
                           },
                           child: child,

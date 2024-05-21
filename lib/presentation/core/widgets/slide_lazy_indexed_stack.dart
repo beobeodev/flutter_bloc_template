@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class SlideIndexedStack extends StatefulWidget {
   const SlideIndexedStack({
-    Key? key,
     required this.index,
-    this.slideOffset = 0.2,
     required this.children,
+    super.key,
+    this.slideOffset = 0.2,
     this.duration = const Duration(milliseconds: 200),
-  }) : super(key: key);
+  });
 
   final int index;
   final double slideOffset;
@@ -46,14 +46,14 @@ class _SlideIndexedStackState extends State<SlideIndexedStack> with SingleTicker
   @override
   void didUpdateWidget(covariant SlideIndexedStack oldWidget) {
     if (widget.index != oldWidget.index) {
-      bool checkRTL = false;
+      var checkRTL = false;
       if (widget.index > oldWidget.index) {
         checkRTL = true;
       }
       setState(() {
         _isRTL = checkRTL;
       });
-      _animationController.forward(from: 0.0);
+      _animationController.forward(from: 0);
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -85,14 +85,14 @@ class _SlideIndexedStackState extends State<SlideIndexedStack> with SingleTicker
 class LazyIndexedStack extends StatefulWidget {
   /// Creates LazyLoadIndexedStack that wraps IndexedStack.
   LazyIndexedStack({
-    Key? key,
+    required this.index,
+    required this.children,
+    super.key,
     Widget? unloadWidget,
     this.alignment = AlignmentDirectional.topStart,
     this.sizing = StackFit.loose,
     this.textDirection,
-    required this.index,
-    required this.children,
-  }) : super(key: key) {
+  }) {
     this.unloadWidget = unloadWidget ?? Container();
   }
 
@@ -133,14 +133,14 @@ class _LazyIndexedStackState extends State<LazyIndexedStack> {
   }
 
   @override
-  void didUpdateWidget(final LazyIndexedStack oldWidget) {
+  void didUpdateWidget(LazyIndexedStack oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     _children[widget.index] = widget.children[widget.index];
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return IndexedStack(
       key: _stackKey,
       index: widget.index,

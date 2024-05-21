@@ -34,14 +34,12 @@ class GradientBoxBorder extends BoxBorder {
           'A borderRadius can only be given for rectangular boxes.',
         );
         _paintCircle(canvas, rect);
-        break;
       case BoxShape.rectangle:
         if (borderRadius != null) {
           _paintRRect(canvas, rect, borderRadius);
           return;
         }
         _paintRect(canvas, rect);
-        break;
     }
   }
 

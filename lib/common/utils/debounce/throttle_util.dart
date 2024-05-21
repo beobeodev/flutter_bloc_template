@@ -32,7 +32,7 @@ abstract final class ThrottleUtil {
     EasyThrottleCallback onExecute, {
     EasyThrottleCallback? onAfter,
   }) {
-    var throttled = _operations.containsKey(tag);
+    final throttled = _operations.containsKey(tag);
     if (throttled) {
       return true;
     }
@@ -41,7 +41,7 @@ abstract final class ThrottleUtil {
       onExecute,
       Timer(duration, () {
         _operations[tag]?.timer.cancel();
-        _EasyThrottleOperation? removed = _operations.remove(tag);
+        final removed = _operations.remove(tag);
 
         removed?.onAfter?.call();
       }),

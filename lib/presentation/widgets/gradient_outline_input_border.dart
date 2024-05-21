@@ -68,7 +68,6 @@ class GradientOutlineInputBorder extends InputBorder {
             extent,
           );
           canvas.drawPath(path, paint);
-          break;
 
         case TextDirection.ltr:
           final path = _gapBorderPath(
@@ -78,7 +77,6 @@ class GradientOutlineInputBorder extends InputBorder {
             extent,
           );
           canvas.drawPath(path, paint);
-          break;
       }
     }
   }

@@ -79,9 +79,7 @@ class EllipsisOverflowText extends StatelessWidget {
       textScaler: textScaler,
       textHeightBehavior: textHeightBehavior,
       strutStyle: strutStyle,
-    );
-
-    textPainter.layout(maxWidth: constraints.maxWidth);
+    )..layout(maxWidth: constraints.maxWidth);
 
     final finalMaxLines = initMaxLines ?? _calculateMaxLines(constraints, textPainter);
 

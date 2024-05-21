@@ -2,16 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/common/utils/validator_util.dart';
-import 'package:flutter_template/presentation/widgets/common_text_form_field.dart';
 import 'package:flutter_template/generated/locale_keys.g.dart';
 import 'package:flutter_template/presentation/auth/bloc/login/login_bloc.dart';
+import 'package:flutter_template/presentation/widgets/common_text_form_field.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
-    super.key,
     required this.formKey,
     required this.emailEditController,
     required this.passwordEditController,
+    super.key,
   });
 
   final GlobalKey<FormState> formKey;

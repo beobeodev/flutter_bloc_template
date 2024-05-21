@@ -3,7 +3,7 @@ import 'package:flutter_template/common/extensions/context_extension.dart';
 
 class CommonTextFormField extends StatelessWidget {
   const CommonTextFormField({
-    Key? key,
+    super.key,
     this.textController,
     this.isObscure = false,
     this.readOnly = false,
@@ -31,7 +31,7 @@ class CommonTextFormField extends StatelessWidget {
     this.onTapSuffixIcon,
     this.labelStyle,
     this.focusNode,
-  }) : super(key: key);
+  });
 
   final TextEditingController? textController;
 

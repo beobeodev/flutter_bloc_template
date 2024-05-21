@@ -9,7 +9,6 @@ import 'package:flutter_template/common/enums/page_transition_type.dart';
 class TransitionPageRoute<T> extends PageRoute<T> {
   /// Page transition constructor. We can pass the next page as a child,
   TransitionPageRoute({
-    Key? key,
     required this.builder,
     this.type,
     this.matchingBuilder = const CupertinoPageTransitionsBuilder(),
@@ -53,7 +52,7 @@ class TransitionPageRoute<T> extends PageRoute<T> {
         final transitionChild = SlideTransition(
           position: animation.drive(
             Tween<Offset>(
-              begin: const Offset(0.0, 0.25),
+              begin: const Offset(0, 0.25),
               end: Offset.zero,
             ).chain(CurveTween(curve: Curves.fastOutSlowIn)),
           ),
@@ -82,7 +81,7 @@ class TransitionPageRoute<T> extends PageRoute<T> {
       case PageTransitionType.rightToLeft:
         final transitionChild = SlideTransition(
           position: Tween<Offset>(
-            begin: const Offset(1.0, 0.0),
+            begin: const Offset(1, 0),
             end: Offset.zero,
           ).animate(animation),
           child: child,
@@ -101,7 +100,7 @@ class TransitionPageRoute<T> extends PageRoute<T> {
       case PageTransitionType.leftToRight:
         return SlideTransition(
           position: Tween<Offset>(
-            begin: const Offset(-1.0, 0.0),
+            begin: const Offset(-1, 0),
             end: Offset.zero,
           ).animate(animation),
           child: child,
@@ -110,7 +109,7 @@ class TransitionPageRoute<T> extends PageRoute<T> {
       case PageTransitionType.downToUp:
         final transitionChild = SlideTransition(
           position: Tween<Offset>(
-            begin: const Offset(0.0, 1.0),
+            begin: const Offset(0, 1),
             end: Offset.zero,
           ).animate(animation),
           child: child,
@@ -129,7 +128,7 @@ class TransitionPageRoute<T> extends PageRoute<T> {
       case PageTransitionType.upToDown:
         final transitionChild = SlideTransition(
           position: Tween<Offset>(
-            begin: const Offset(0.0, -1.0),
+            begin: const Offset(0, -1),
             end: Offset.zero,
           ).animate(animation),
           child: child,
@@ -146,8 +145,7 @@ class TransitionPageRoute<T> extends PageRoute<T> {
             : transitionChild;
 
       default:
-        final PageTransitionsTheme theme =
-            Theme.of(context).pageTransitionsTheme;
+        final theme = Theme.of(context).pageTransitionsTheme;
         return theme.buildTransitions<T>(
           this,
           context,
@@ -172,7 +170,7 @@ class TransitionPageRoute<T> extends PageRoute<T> {
     Animation<double> animation,
     Animation<double> secondaryAnimation,
   ) {
-    final Widget result = buildContent(context);
+    final result = buildContent(context);
     return Semantics(
       scopesRoute: true,
       explicitChildNodes: true,

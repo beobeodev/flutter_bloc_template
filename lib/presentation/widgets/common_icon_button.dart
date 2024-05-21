@@ -3,10 +3,10 @@ import 'package:flutter_template/common/extensions/context_extension.dart';
 
 class CommonIconButton extends StatelessWidget {
   const CommonIconButton({
-    super.key,
     required this.icon,
-    this.iconColor,
     required this.onPressed,
+    super.key,
+    this.iconColor,
   });
   final Color? iconColor;
   final IconData icon;

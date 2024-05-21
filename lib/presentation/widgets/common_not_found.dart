@@ -3,7 +3,7 @@ import 'package:flutter_template/common/extensions/context_extension.dart';
 import 'package:flutter_template/generated/assets.gen.dart';
 
 class CommonNotFound extends StatelessWidget {
-  const CommonNotFound({super.key, required this.text});
+  const CommonNotFound({required this.text, super.key});
   final String text;
 
   @override

@@ -40,7 +40,7 @@ abstract class DialogUtil {
     );
   }
 
-  static Future<void> showCustomDialog(
+  static Future<dynamic> showCustomDialog(
     BuildContext context, {
     required String title,
     bool barrierDismissible = true,
@@ -53,8 +53,8 @@ abstract class DialogUtil {
     String? confirmButtonText,
     VoidCallback? confirmAction,
     bool isConfirmDialog = false,
-  }) async {
-    return await showDialog(
+  }) {
+    return showDialog(
       context: context,
       barrierDismissible: barrierDismissible,
       builder: (BuildContext context) {

@@ -1,5 +1,3 @@
-library custom_rounded_rectangle_border;
-
 import 'dart:math';
 
 import 'package:flutter/painting.dart';
@@ -319,10 +317,10 @@ class CustomRoundedRectangleBorder extends ShapeBorder {
     double? sideWidth,
   ]) {
     sideWidth ??= 0;
-    final double d = sideWidth / 2;
-    final double borderRadiusX = radius.x - d;
-    final double borderRadiusY = radius.y - d;
-    final Rect rect = Rect.fromPoints(
+    final d = sideWidth / 2;
+    final borderRadiusX = radius.x - d;
+    final borderRadiusY = radius.y - d;
+    final rect = Rect.fromPoints(
       offset + Offset(signX.sign * d, signY.sign * d),
       offset +
           Offset(signX.sign * d, signY.sign * d) +

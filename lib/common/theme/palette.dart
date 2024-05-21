@@ -19,14 +19,14 @@ class Palette extends ThemeExtension<Palette> {
   const Palette({
     required this.brightness,
     required this.scaffoldBackground,
-    this.buttonText = const Color(0xFFF7F7FC),
     required this.buttonBackground,
     required this.normalText,
     required this.textFieldBackground,
-    this.hintTextField = const Color(0xFFADB5BD),
     required this.errorButtonLabel,
     required this.dialogBackground,
     required this.focusedBorderColor,
+    this.buttonText = const Color(0xFFF7F7FC),
+    this.hintTextField = const Color(0xFFADB5BD),
   });
 
   factory Palette.light() {
@@ -71,7 +71,7 @@ class Palette extends ThemeExtension<Palette> {
       brightness: brightness ?? this.brightness,
       scaffoldBackground: scaffoldBackground ?? this.scaffoldBackground,
       buttonBackground: buttonBackground ?? this.buttonBackground,
-      normalText: text ?? this.normalText,
+      normalText: text ?? normalText,
       textFieldBackground: textFieldBackground ?? this.textFieldBackground,
       hintTextField: hintTextField ?? this.hintTextField,
       errorButtonLabel: errorButtonLabel ?? this.errorButtonLabel,

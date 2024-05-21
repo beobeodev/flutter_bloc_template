@@ -80,7 +80,7 @@ class _FocusedMenuHolderState extends State<FocusedMenuHolder> {
   }
 
   GlobalKey containerKey = GlobalKey();
-  Offset childOffset = const Offset(0, 0);
+  Offset childOffset = Offset.zero;
   Size? childSize;
 
   void _getOffset() {

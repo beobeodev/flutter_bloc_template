@@ -20,7 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) {
     try {
-      final UserModel? user = _userRepository.getUserInfo();
+      final user = _userRepository.getUserInfo();
 
       _changeAuthState(user, emit);
     } catch (err) {

@@ -3,7 +3,7 @@ import 'package:flutter_template/common/extensions/context_extension.dart';
 import 'package:flutter_template/common/theme/app_size.dart';
 
 class AppSafeArea extends StatelessWidget {
-  const AppSafeArea({super.key, required this.child, this.paddingBottom = 0});
+  const AppSafeArea({required this.child, super.key, this.paddingBottom = 0});
   final Widget child;
   final double paddingBottom;
 

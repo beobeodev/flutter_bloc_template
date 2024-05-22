@@ -13,36 +13,6 @@ abstract final class AppRouter {
   // Root
   static const String root = '/root';
 
-  // static final router = GoRouter(
-  //   routes: [
-  //     GoRoute(
-  //       path: login,
-  //       pageBuilder: (_, __) {
-  //         return const MaterialPage(
-  //           child: LoginPage(),
-  //         );
-  //       },
-  //     ),
-  //     GoRoute(
-  //       path: register,
-  //       pageBuilder: (_, __) {
-  //         return const MaterialPage(
-  //           child: RegisterView(),
-  //         );
-  //       },
-  //     ),
-  //     GoRoute(
-  //       path: root,
-  //       pageBuilder: (_, __) {
-  //         return const MaterialPage(
-  //           child: RootPage(),
-  //         );
-  //       },
-  //     )
-  //   ],
-  //   initialLocation: login,
-  // );
-
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splash:

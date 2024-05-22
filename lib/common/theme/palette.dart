@@ -44,7 +44,7 @@ class Palette extends ThemeExtension<Palette> {
 
   factory Palette.dark() {
     return const Palette(
-      brightness: Brightness.light,
+      brightness: Brightness.dark,
       scaffoldBackground: Color(0xFF0F1828),
       buttonBackground: Color(0xFF375FFF),
       normalText: Color(0xFFF7F7FC),

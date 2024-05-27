@@ -13,9 +13,6 @@ extension ContextExtension on BuildContext {
 
   ThemeData get theme => Theme.of(this);
 
-  /// Check if dark mode theme is enable
-  bool get isDarkMode => theme.brightness == Brightness.dark;
-
   /// similar to [MediaQuery.of(context).viewPadding]
   EdgeInsets get mediaQueryPadding => MediaQuery.of(this).viewPadding;
 
@@ -37,4 +34,127 @@ extension ContextExtension on BuildContext {
   AppTextStyles get textStyles => Theme.of(this).extension<AppTextStyles>()!;
 
   Palette get palette => Theme.of(this).extension<Palette>()!;
+
+}
+
+extension ConfigurationExt on BuildContext {
+  /// Check if dark mode theme is enable
+  bool get isDarkMode => theme.brightness == Brightness.dark;
+
+  TargetPlatform get platform => Theme.of(this).platform;
+
+  bool get isAndroid => platform == TargetPlatform.android;
+
+  bool get isIOS => platform == TargetPlatform.iOS;
+
+  bool get isMacOS => platform == TargetPlatform.macOS;
+
+  bool get isWindows => platform == TargetPlatform.windows;
+
+  bool get isFuchsia => platform == TargetPlatform.fuchsia;
+
+  bool get isLinux => platform == TargetPlatform.linux;
+
+  bool get alwaysUse24HourFormat => MediaQuery.of(this).alwaysUse24HourFormat;
+
+  Orientation get orientation => MediaQuery.of(this).orientation;
+
+  bool get isLandscape => orientation == Orientation.landscape;
+
+  bool get isPortrait => orientation == Orientation.portrait;
+}
+
+extension ScaffoldExt on BuildContext {
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(
+    SnackBar snackbar,
+  ) =>
+      ScaffoldMessenger.of(this).showSnackBar(snackbar);
+
+  void removeCurrentSnackBar({
+    SnackBarClosedReason reason = SnackBarClosedReason.remove,
+  }) =>
+      ScaffoldMessenger.of(this).removeCurrentSnackBar(reason: reason);
+
+  void hideCurrentSnackBar({
+    SnackBarClosedReason reason = SnackBarClosedReason.hide,
+  }) =>
+      ScaffoldMessenger.of(this).hideCurrentSnackBar(reason: reason);
+
+  void openDrawer() => Scaffold.of(this).openDrawer();
+
+  void openEndDrawer() => Scaffold.of(this).openEndDrawer();
+
+  void showBottomSheet(
+    WidgetBuilder builder, {
+    Color? backgroundColor,
+    double? elevation,
+    ShapeBorder? shape,
+    Clip? clipBehaviour,
+  }) =>
+      Scaffold.of(this).showBottomSheet(
+        builder,
+        backgroundColor: backgroundColor,
+        elevation: elevation,
+        shape: shape,
+        clipBehavior: clipBehaviour,
+      );
+}
+
+class _Form {
+  _Form(this._context);
+
+  final BuildContext _context;
+
+  bool validate() => Form.of(_context).validate();
+
+  void reset() => Form.of(_context).reset();
+
+  void save() => Form.of(_context).save();
+}
+
+extension FormExt on BuildContext {
+  // ignore: library_private_types_in_public_api
+  _Form get form => _Form(this);
+}
+
+class _FocusScope {
+  const _FocusScope(this._context);
+
+  final BuildContext _context;
+
+  FocusScopeNode _node() => FocusScope.of(_context);
+
+  bool get hasFocus => _node().hasFocus;
+
+  bool get isFirstFocus => _node().isFirstFocus;
+
+  bool get hasPrimaryFocus => _node().hasPrimaryFocus;
+
+  bool get canRequestFocus => _node().canRequestFocus;
+
+  void nextFocus() => _node().nextFocus();
+
+  void requestFocus([FocusNode? node]) => _node().requestFocus(node);
+
+  void previousFocus() => _node().previousFocus();
+
+  void unfocus({UnfocusDisposition disposition = UnfocusDisposition.scope}) =>
+      _node().unfocus(disposition: disposition);
+
+  void setFirstFocus(FocusScopeNode scope) => _node().setFirstFocus(scope);
+
+  bool consumeKeyboardToken() => _node().consumeKeyboardToken();
+}
+
+extension FocusScopeExt on BuildContext {
+  // ignore: library_private_types_in_public_api
+  _FocusScope get focusScope => _FocusScope(this);
+
+  void closeKeyboard() => focusScope.requestFocus(FocusNode());
+}
+
+extension ModalRouteExt<T> on BuildContext {
+  ModalRoute<T>? get modalRoute => ModalRoute.of<T>(this);
+
+  RouteSettings? get routeSettings => modalRoute?.settings;
 }

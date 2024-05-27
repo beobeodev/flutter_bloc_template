@@ -44,7 +44,6 @@ app.*.map.json
 /android/app/release
 
 # fvm
-.fvm/flutter_sdk
 
 # mason
 .mason
@@ -55,3 +54,6 @@ mason-lock.json
 .env.dev
 .env.qa
 .env.staging
+
+# FVM Version Cache
+.fvm/
